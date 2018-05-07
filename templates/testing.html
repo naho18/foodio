@@ -1,0 +1,15 @@
+ <h2>Games</h2>
+  <table class="table">
+    <thead>
+    <th>Name</th>
+    <th>Email</th>
+    </thead>
+    <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>

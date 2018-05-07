@@ -91,6 +91,38 @@ def connect_to_db(app):
     db.app = app
     db.init_app(app)
 
+
+def example_data():
+    """Example data for test database"""
+
+    # USERS
+
+    u1 = User(name='John Doe', email='jd@gmail.com', password='jd123')
+    u2 = User(name='Chase Bunny', email='cb@gmail.com', password='cb123')
+    u3 = User(name='Phoebe Buffet', email='pb@gmail.com', password='pb123')
+
+    db.session.add_all([u1, u2, u3])
+    db.session.commit()
+
+    # FOODS
+    f1 = Food(food='tomato', quantity='2', added_on='2018-05-07')
+    f2 = Food(food='salmon', quantity='1', added_on='2018-05-07')
+    f3 = Food(food='lemon', quantity='3', added_on='2018-05-07')
+    
+    db.session.add_all([f1, f2, f3])
+    db.session.commit()
+
+    # REFRIGERATORS
+    r1 = Refrigerator(user_id='1', food_id='1')
+    r2 = Refrigerator(user_id='1', food_id='2')
+    r3 = Refrigerator(user_id='2', food_id='3')
+    
+    db.session.add_all([r1, r2, r3])
+    db.session.commit()
+
+    print "ADDED TO DB"
+
+
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.
