@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+Welcome to Foodio!
+
+<h2>Log In</h2>
+
+    <form action="/login" method="POST">
+        Email: <input type="text" name="email"><br>
+        Password: <input type="password" name="password"><br>
+
+        <input type="submit" value="Log In">
+    </form>
+
+
+<!-- link that takes you to registration form instead  -->
+<a href='/register'>Register </a>
+
+{% endblock %}
+
