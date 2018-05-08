@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-Welcome to Foodio!
 
-<h2>Log In</h2>
+<b>Log In</b>
 
     <form action="/login" method="POST">
-        Email: <input type="text" name="email"><br>
-        Password: <input type="password" name="password"><br>
+        Email: <input type="text" name="email">  Password: <input type="password" name="password"><br>
 
         <input type="submit" value="Log In">
     </form>
 
+<hr>
 
 <!-- link that takes you to registration form instead  -->
-<a href='/register'>Register </a>
+<h2>Sign Up</h2>
+<form action='/registration' method="POST">
+    Name:<input type='text' name='name'><br>
+    Email:<input type='text' name='email'><br>
+    Password:<input type='password' name='password'><br>
+    <input type="Submit" value='Sign Up'>
+</form>
+
 
 {% endblock %}
 

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+USER HOME PAGE:
+<br>
+Available food in refrigerator:<br>
+
+    {% for item in user_refrigerator %}
+        <!-- item object of food, at food name -->
+        {{ item.food.food }} <br>
+
+    {% endfor %}
+
+<br><br><br><br><br>
+<a href='/logout'>Log Out</a> 
+
+{% endblock %}
