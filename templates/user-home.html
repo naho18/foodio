@@ -12,7 +12,20 @@ Available food in refrigerator:<br>
 
     {% endfor %}
 
+<br>
+Add ingredients to fridge:
+<form action="/add-food">
+  Ingredient: <input type="text" name="ingredient">
+  Quantity: <input type="text" name="quantity">
+<!--   Expires on:<input type="text" name="expiration"> -->
+  <input type="hidden" name="user_id" value={{ user_id }}>
+
+  <input type='submit' value='add'>
+</form>
 <br><br><br><br><br>
 <a href='/logout'>Log Out</a> 
+
+<!-- ADD INGREDIENTS TO USER REFRIGERATOR -->
+
 
 {% endblock %}

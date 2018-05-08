@@ -6,6 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Food, Refrigerator, Recipe
 
+from datetime import datetime
 from jinja2 import StrictUndefined
 
 # create flask app
@@ -14,7 +15,7 @@ app = Flask(__name__)
 # create secret key, necessary for sessions:
 app.secret_key = 'hj8fal15iz3d0fx8fN0abi6bf'
 
-# raises jinja underfined error 
+# raises jinja underfined error
 app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
@@ -61,7 +62,7 @@ def display_homepage(user_id):
     user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
     print user_refrigerator
 
-    return render_template('user-home.html', user_refrigerator=user_refrigerator)
+    return render_template('user-home.html', user_id=user_id, user_refrigerator=user_refrigerator)
 
 
 @app.route('/registration', methods=['POST'])
@@ -94,6 +95,43 @@ def logout():
     flash('You were successfully logged out')
 
     return redirect('/')
+
+@app.route('/add-food')
+def add_food():
+    """Adds ingredient to Food database"""
+
+    ingredient = request.args.get('ingredient')
+    quantity_input = request.args.get('quantity')
+    quantity = int(quantity_input)
+    added_on = str(datetime.now())
+
+    # look into calendar display to click on date
+    # expires = request.args.get('expires')
+    # expires_on = 
+
+    # get user_id from form
+    user_id = request.args.get('user_id')
+    print user_id 
+
+    food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()))
+    db.session.add(food)
+    db.session.commit()
+
+    # get food_id
+    print food.food_id
+
+    flash('item successfully added!')
+
+    #return user_id & food_id to add-refrigerator
+
+    return "food added"
+
+@app.route('/add-refrigerator')
+def add_refrigerator():
+    """Adds refrigerator to Refrigerator database"""
+
+
+
 ##############################################################################
 
 
