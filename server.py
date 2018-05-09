@@ -24,6 +24,30 @@ def index():
         return render_template('homepage.html')
 
 
+@app.route('/registration', methods=['POST'])
+def register_user():
+    """Registers user"""
+
+    user_name = request.form['name']
+    user_email = request.form['email']
+    user_password = request.form['password']
+
+    # Check to see if user already exists
+    email_query = User.query.filter_by(email=user_email).all()
+
+    if email_query:
+        flash('Already a member. Please log in')
+        return redirect('/')
+    else:
+        # Add user to database
+        user = User(name=user_name, email=user_email, password=user_password)
+        db.session.add(user)
+        db.session.commit()
+
+        flash('Registration successful! Please log in!')
+        return redirect('/')
+
+
 @app.route('/login', methods=['POST'])
 def login_check():
     """Validates user info, takes user to home page"""
@@ -54,6 +78,15 @@ def login_check():
         flash('Invalid password')
         return redirect('/')
 
+
+@app.route('/logout')
+def logout():
+    session.pop('user')
+    flash('You were successfully logged out')
+
+    return redirect('/')
+
+
 @app.route('/user-<user_id>')
 def display_homepage(user_id):
     """Show user's information"""
@@ -65,40 +98,9 @@ def display_homepage(user_id):
     return render_template('user-home.html', user_id=user_id, user_refrigerator=user_refrigerator)
 
 
-@app.route('/registration', methods=['POST'])
-def register_user():
-    """Registers user"""
-
-    user_name = request.form['name']
-    user_email = request.form['email']
-    user_password = request.form['password']
-
-    # Check to see if user already exists
-    email_query = User.query.filter_by(email=user_email).all()
-
-    if email_query:
-        flash('Already a member. Please log in')
-        return redirect('/')
-    else:
-        # Add user to database
-        user = User(name=user_name, email=user_email, password=user_password)
-        db.session.add(user)
-        db.session.commit()
-
-        flash('Registration successful! Please log in!')
-        return redirect('/')
-
-
-@app.route('/logout')
-def logout():
-    session.pop('user')
-    flash('You were successfully logged out')
-
-    return redirect('/')
-
 @app.route('/add-food', methods=['POST'])
 def add_food():
-    """Adds ingredient to Food database"""
+    """Adds ingredient to Food database, adds refrigerator"""
 
     ingredient = request.form['ingredient']
     quantity_input = request.form['quantity']
@@ -135,9 +137,29 @@ def add_food():
     return redirect('/user-%s' % user_id)
 
 
-# @app.route('/add-refrigerator')
-# def add_refrigerator():
-#     """Adds refrigerator to Refrigerator database"""
+@app.route('/remove-food', methods=['POST'])
+def remove_food():
+    """Removes ingredient from Food database"""
+    # http://docs.sqlalchemy.org/en/latest/orm/query.html?
+    # http://flask-sqlalchemy.pocoo.org/2.3/queries/
+
+    user_id = request.form['user_id']
+    food_id = request.form['rm-ingredient']
+
+    # query to delete refrigerator by user_id & food_id from Refrigerator table
+    del_fridge = Refrigerator.query.filter(
+        Refrigerator.user_id == user_id, Refrigerator.food_id == food_id).delete()
+
+    db.session.commit()
+
+    # query to delete food by food_id from Food table
+
+    del_food = Food.query.filter(Food.food_id == food_id).delete()
+    db.session.commit()
+
+    # db.session.add_delete([del_food, del_fridge])
+
+    return redirect('/user-%s' % user_id)
 
 
 
