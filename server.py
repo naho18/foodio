@@ -96,12 +96,12 @@ def logout():
 
     return redirect('/')
 
-@app.route('/add-food')
+@app.route('/add-food', methods=['POST'])
 def add_food():
     """Adds ingredient to Food database"""
 
-    ingredient = request.args.get('ingredient')
-    quantity_input = request.args.get('quantity')
+    ingredient = request.form['ingredient']
+    quantity_input = request.form['quantity']
     quantity = int(quantity_input)
     added_on = str(datetime.now())
 
@@ -110,7 +110,7 @@ def add_food():
     # expires_on = 
 
     # get user_id from form
-    user_id = request.args.get('user_id')
+    user_id = request.form['user_id']
     print user_id 
 
     food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()))
@@ -118,17 +118,26 @@ def add_food():
     db.session.commit()
 
     # get food_id
+    food_id = food.food_id
     print food.food_id
+
+    refrigerator = Refrigerator(user_id=user_id, food_id=food_id)
+    db.session.add(refrigerator)
+    db.session.commit()
+
+    # user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
 
     flash('item successfully added!')
 
     #return user_id & food_id to add-refrigerator
 
-    return "food added"
+    # return render_template('user-home.html', user_id=user_id, user_refrigerator=user_refrigerator)
+    return redirect('/user-%s' % user_id)
 
-@app.route('/add-refrigerator')
-def add_refrigerator():
-    """Adds refrigerator to Refrigerator database"""
+
+# @app.route('/add-refrigerator')
+# def add_refrigerator():
+#     """Adds refrigerator to Refrigerator database"""
 
 
 
