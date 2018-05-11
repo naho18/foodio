@@ -109,7 +109,9 @@ def add_food():
     quantity_input = request.form['quantity']
     quantity = int(quantity_input)
     added_on = str(datetime.now())
+    food_type = request.form['food_type']
 
+    print food_type
     # look into calendar display to click on date
     # expires = request.args.get('expires')
     # expires_on = 
@@ -118,7 +120,7 @@ def add_food():
     user_id = request.form['user_id']
     print user_id 
 
-    food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()))
+    food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()), food_type=food_type)
     db.session.add(food)
     db.session.commit()
 
@@ -211,6 +213,7 @@ def display_recipes():
     {u'title': u'Zesty Salmon Burgers with Dill Spread', u'image': u'https://spoonacular.com/recipeImages/595943-312x231.jpg', u'missedIngredientCount': 20, u'likes': 674, u'usedIngredientCount': 4, u'id': 595943, u'imageType': u'jpg'}, 
 
     {u'title': u'Smoked Salmon & Scrambled Eggs Recipe', u'image': u'https://spoonacular.com/recipeImages/78568-312x231.jpg', u'missedIngredientCount': 2, u'likes': 121, u'usedIngredientCount': 3, u'id': 78568, u'imageType': u'jpg'}]
+
 
     return render_template("recipes.html",
                            body=body)

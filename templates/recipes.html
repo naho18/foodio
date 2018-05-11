@@ -11,12 +11,15 @@
       <ul class="recipes">
         {% for recipe in body %}
 
+          {{ recipe.title }} <br>
+          <a href='https://spoonacular.com/recipes/{{ recipe.title.replace(' ', '-') }}-{{ recipe.id }}'>
+            <img src="{{ recipe.image }}" alt="Image"></a> <br>
 
-          <li>Title: {{ recipe.title }}</li> <br>
-          <li><img src="{{ recipe.image }}" alt="Image"> <br>
-          <li>Num of Ingredients Used: {{ recipe.usedIngredientCount }} <br>
-          <li>Num of Ingredients Needed: {{ recipe.missedIngredientCount }} <br>
-
+          Number of Ingredients Used: {{ recipe.usedIngredientCount }} <br>
+          Number of Ingredients Needed: {{ recipe.missedIngredientCount }} 
+          <br>
+          <br>
+          <br>
         {% endfor %}
       </ul>
 

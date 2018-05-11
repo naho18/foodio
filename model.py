@@ -36,6 +36,7 @@ class Food(db.Model):
     quantity = db.Column(db.Integer)
     added_on = db.Column(db.DateTime)
     expires_on = db.Column(db.DateTime)
+    food_type = db.Column(db.String(10))
 
     def __repr__(self):
         """Show information about food in refrigerator"""
@@ -105,9 +106,9 @@ def example_data():
     db.session.commit()
 
     # FOODS
-    f1 = Food(food='tomato', quantity='2', added_on='2018-05-07')
-    f2 = Food(food='salmon', quantity='1', added_on='2018-05-07')
-    f3 = Food(food='lemon', quantity='3', added_on='2018-05-07')
+    f1 = Food(food='tomato', quantity='2', added_on='2018-05-07', food_type='v')
+    f2 = Food(food='salmon', quantity='1', added_on='2018-05-07', food_type='p')
+    f3 = Food(food='lemon', quantity='3', added_on='2018-05-07', food_type='f')
     
     db.session.add_all([f1, f2, f3])
     db.session.commit()

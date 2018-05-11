@@ -14,7 +14,17 @@ Available food in refrigerator:<br>
 
 <br>
 
-  Add ingredients to fridge:
+  <form action="/add-food" method="POST">
+  Add 
+  <select name="food_type">
+    <option value="d">dairy</option>
+    <option value="v">vegetables</option>
+    <option value="f">fruits</option>
+    <option value="g">grains</option>
+    <option value="p">protein</option>
+  </select> 
+  to fridge:<br>
+
   <form action="/add-food" method="POST">
     Ingredient: <input type="text" name="ingredient"><br>
     Quantity: <input type="text" name="quantity"><br>
