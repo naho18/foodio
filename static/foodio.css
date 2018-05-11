@@ -1,0 +1,36 @@
+body {
+    font-family: Verdana;
+}
+
+h2 {
+    color: red;
+}
+
+b {
+    color: red;
+}
+
+form {
+    font-size: 75%;
+}
+
+input[type=text] {
+    font-size: 50%;
+    padding: 0.25em;
+}
+
+input[type=submit] {
+    background-color: red;
+    color: white;
+    font-size: 50%;
+    padding: 0.25em 1em;
+    border-radius: 20px;
+}
+
+footer {
+  margin-top: 3em;
+  margin-bottom: 1em;
+  color: #666;
+  border-top: solid 1px #666;
+  padding-top: 1em;
+}

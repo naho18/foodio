@@ -9,6 +9,9 @@ from model import connect_to_db, db, User, Food, Refrigerator, Recipe
 from datetime import datetime
 from jinja2 import StrictUndefined
 
+import unirest
+import os
+
 # create flask app
 app = Flask(__name__)
 
@@ -161,6 +164,56 @@ def remove_food():
 
     return redirect('/user-%s' % user_id)
 
+
+@app.route('/recipes')
+def display_recipes():
+    """Find recipes using Spoonacular API"""
+
+    user_id = 2
+    user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
+    ingredients = ""
+
+    # create ingredients list to pass to API request
+    for item in user_refrigerator:
+        print item.food.food
+        ingredients += item.food.food + ", "
+
+    # payload = {'fillIngredients': 'false', 'ingredients': ingredients, 'limitLicense': 'false', 'number':6, 'ranking':1}
+
+    # r = unirest.get(
+    #     "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients", 
+    #     headers={"X-Mashape-Key": os.environ['X_Mashape_Key'],
+    #     "Accept": "application/json"}, params=payload
+    # )
+    # #r = object
+    #response list of dictionaries
+
+    # entire body (all 6 recipes) 
+    # body = r.body
+    # body[0] first recipe
+    # title --> title = body[0]['title']
+    
+    # print body
+    # print title
+
+    body = [
+    {u'title': u'Fried Shrimp Rolls', u'image': u'https://spoonacular.com/recipeImages/743121-312x231.jpeg', 
+    u'missedIngredientCount': 9, u'likes': 97, u'usedIngredientCount': 4, u'id': 743121, u'imageType': u'jpeg'}, 
+
+    {u'title': u'Salmon Burger with Dill/Caper Tartar Sauce and Red Onion Ceviche', u'image': u'https://spoonacular.com/recipeImages/767322-312x231.jpg', 
+    u'missedIngredientCount': 12, u'likes': 0, u'usedIngredientCount': 4, u'id': 767322, u'imageType': u'jpg'}, 
+
+    {u'title': u'Green Goddess Salmon Burgers', u'image': u'https://spoonacular.com/recipeImages/880658-312x231.jpg', u'missedIngredientCount': 15, u'likes': 0, 
+    u'usedIngredientCount': 4, u'id': 880658, u'imageType': u'jpg'}, 
+
+    {u'title': u"Seafood Po' Boy with Umami Remoulade", u'image': u'https://spoonacular.com/recipeImages/770137-312x231.jpeg', u'missedIngredientCount': 17, u'likes': 4, u'usedIngredientCount': 4, u'id': 770137, u'imageType': u'jpeg'}, 
+
+    {u'title': u'Zesty Salmon Burgers with Dill Spread', u'image': u'https://spoonacular.com/recipeImages/595943-312x231.jpg', u'missedIngredientCount': 20, u'likes': 674, u'usedIngredientCount': 4, u'id': 595943, u'imageType': u'jpg'}, 
+
+    {u'title': u'Smoked Salmon & Scrambled Eggs Recipe', u'image': u'https://spoonacular.com/recipeImages/78568-312x231.jpg', u'missedIngredientCount': 2, u'likes': 121, u'usedIngredientCount': 3, u'id': 78568, u'imageType': u'jpg'}]
+
+    return render_template("recipes.html",
+                           body=body)
 
 
 ##############################################################################
