@@ -12,6 +12,8 @@ from jinja2 import StrictUndefined
 import unirest
 import os
 
+from flask import jsonify
+
 # create flask app
 app = Flask(__name__)
 
@@ -96,12 +98,11 @@ def display_homepage(user_id):
     print 'homepage', user_id
 
     user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
-    print user_refrigerator
 
     return render_template('user-home.html', user_id=user_id, user_refrigerator=user_refrigerator)
 
 
-@app.route('/add-food', methods=['POST'])
+@app.route('/add-food.json', methods=['POST'])
 def add_food():
     """Adds ingredient to Food database, adds refrigerator"""
 
@@ -111,15 +112,13 @@ def add_food():
     added_on = str(datetime.now())
     food_type = request.form['food_type']
 
-    print food_type
-    # look into calendar display to click on date
-    # expires = request.args.get('expires')
-    # expires_on = 
+    print food_type 
+    
+    # get user_id from session
+    user_id = session['user']
+    print user_id
 
-    # get user_id from form
-    user_id = request.form['user_id']
-    print user_id 
-
+    # add to Food table
     food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()), food_type=food_type)
     db.session.add(food)
     db.session.commit()
@@ -128,25 +127,19 @@ def add_food():
     food_id = food.food_id
     print food.food_id
 
+    # add to Refrigerator table
     refrigerator = Refrigerator(user_id=user_id, food_id=food_id)
     db.session.add(refrigerator)
     db.session.commit()
 
-    # user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
-
     flash('item successfully added!')
 
-    #return user_id & food_id to add-refrigerator
-
-    # return render_template('user-home.html', user_id=user_id, user_refrigerator=user_refrigerator)
-    return redirect('/user-%s' % user_id)
+    return jsonify(ingredient)
 
 
 @app.route('/remove-food', methods=['POST'])
 def remove_food():
     """Removes ingredient from Food database"""
-    # http://docs.sqlalchemy.org/en/latest/orm/query.html?
-    # http://flask-sqlalchemy.pocoo.org/2.3/queries/
 
     user_id = request.form['user_id']
     food_id = request.form['rm-ingredient']
@@ -158,11 +151,8 @@ def remove_food():
     db.session.commit()
 
     # query to delete food by food_id from Food table
-
     del_food = Food.query.filter(Food.food_id == food_id).delete()
     db.session.commit()
-
-    # db.session.add_delete([del_food, del_fridge])
 
     return redirect('/user-%s' % user_id)
 

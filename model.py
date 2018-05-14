@@ -41,8 +41,8 @@ class Food(db.Model):
     def __repr__(self):
         """Show information about food in refrigerator"""
 
-        return "<food_id= %s food= %s quantity= %d>" % (
-            self.food_id, self.food, self.quantity)
+        return "<food_id= %s food= %s quantity= %d food_type=%s>" % (
+            self.food_id, self.food, self.quantity, self.food_type)
 
 
 class Refrigerator(db.Model):
@@ -106,9 +106,9 @@ def example_data():
     db.session.commit()
 
     # FOODS
-    f1 = Food(food='tomato', quantity='2', added_on='2018-05-07', food_type='v')
-    f2 = Food(food='salmon', quantity='1', added_on='2018-05-07', food_type='p')
-    f3 = Food(food='lemon', quantity='3', added_on='2018-05-07', food_type='f')
+    f1 = Food(food='tomato', quantity='2', added_on='2018-05-07', food_type='2v')
+    f2 = Food(food='salmon', quantity='1', added_on='2018-05-07', food_type='1p')
+    f3 = Food(food='lemon', quantity='3', added_on='2018-05-07', food_type='3f')
     
     db.session.add_all([f1, f2, f3])
     db.session.commit()

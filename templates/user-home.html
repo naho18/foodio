@@ -1,43 +1,56 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
 
 USER HOME PAGE:
 <br><br><br>
+ <!-- /////////////////// DISPLAY ITEM IN REFRIGERATOR///////////////////// -->
+
 Available food in refrigerator:<br>
 
+<div id='display-food'>
   {% for item in user_refrigerator %}
       <!-- item object of food, at food name -->
       {{ item.food.food }} <br>
 
   {% endfor %}
+<br><br>
+</div>
 
-<br>
+ <!-- ////////////////////ADD ITEM TO REFRIGERATOR////////////////////////// -->
 
-  <form action="/add-food" method="POST">
+<div id='add-food'>
+  <form id='add-food-form'>
   Add 
-  <select name="food_type">
-    <option value="d">dairy</option>
-    <option value="v">vegetables</option>
-    <option value="f">fruits</option>
-    <option value="g">grains</option>
-    <option value="p">protein</option>
+  <select id='food_type' name="food_type">
+    <option value="1p">protein</option>
+    <option value="2v">vegetables</option>
+    <option value="3f">fruits</option>
+    <option value="4d">dairy</option>
+    <option value="5g">grains</option>
   </select> 
   to fridge:<br>
 
-  <form action="/add-food" method="POST">
-    Ingredient: <input type="text" name="ingredient"><br>
-    Quantity: <input type="text" name="quantity"><br>
+    Ingredient: <input type="text" id='ingredient' name="ingredient"><br>
+    Quantity: <input type="text" id='quantity' name="quantity"><br>
   <!--   Expires on:<input type="text" name="expiration"> -->
-    <input type="hidden" name="user_id" value={{ user_id }}>
 
     <input type='submit' value='add'>
   </form>
+</div>  
+
+<!-- load JS  -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script type=text/javascript src="{{
+  url_for('static', filename='user-home.js') }}"></script>
 
 <br><br><br>
 
+ <!-- ///////////////////REMOVE ITEM TO REFRIGERATOR/////////////////////// -->
 
-
+<div id='remove-food'>
   <form action="/remove-food" method="POST">
   Remove ingredient from fridge:<br>
     <select name="rm-ingredient">
@@ -51,6 +64,8 @@ Available food in refrigerator:<br>
       <input type='submit' value='remove'>
     </select>
   </form>
+
+</div>
 
 <br><br><br><br><br>
 
