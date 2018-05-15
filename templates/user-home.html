@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
 
 USER HOME PAGE:
 <br><br><br>
@@ -10,17 +8,16 @@ USER HOME PAGE:
 Available food in refrigerator:<br>
 
 <div id='display-food'>
-  {% for item in user_refrigerator %}
-      <!-- item object of food, at food name -->
-      {{ item.food.food }} <br>
-
+  {% for item in user_refrigerator %}<p>
+      {{ item.food.food }} </p>
   {% endfor %}
-<br><br>
 </div>
 
+<br><br>
  <!-- ////////////////////ADD ITEM TO REFRIGERATOR////////////////////////// -->
 
 <div id='add-food'>
+
   <form id='add-food-form'>
   Add 
   <select id='food_type' name="food_type">
@@ -41,7 +38,6 @@ Available food in refrigerator:<br>
 </div>  
 
 <!-- load JS  -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <script type=text/javascript src="{{
   url_for('static', filename='user-home.js') }}"></script>
@@ -51,15 +47,13 @@ Available food in refrigerator:<br>
  <!-- ///////////////////REMOVE ITEM TO REFRIGERATOR/////////////////////// -->
 
 <div id='remove-food'>
-  <form action="/remove-food" method="POST">
+  <form id='remove-food-form'>
   Remove ingredient from fridge:<br>
-    <select name="rm-ingredient">
+    <select id="rm-ingredient" name="rm-ingredient">
       {% for item in user_refrigerator %}
           <!-- item object of food, at food name -->
-          <option value="{{item.food.food_id}}">{{ item.food.food }}</option>
+          <option value="{{item.food.food_id}} {{item.food.food}}">{{ item.food.food }}</option>
       {% endfor %}
-    <input type="hidden" name="user_id" value={{ user_id }}>
-
       &nbsp;
       <input type='submit' value='remove'>
     </select>
@@ -67,6 +61,11 @@ Available food in refrigerator:<br>
 
 </div>
 
+
+<!-- load JS  -->
+
+<script type=text/javascript src="{{
+  url_for('static', filename='remove-food.js') }}"></script>
 <br><br><br><br><br>
 
 <a href='/logout'>Log Out</a> 

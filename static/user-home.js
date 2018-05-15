@@ -1,13 +1,13 @@
-// event listener, AJAX request
 
+<!-- ////////////////////ADD ITEM TO REFRIGERATOR////////////////////////// -->
 
 function displayFood(results) {
-    console.log(results);
-    $('#ingredient').html(results);
+    // get display-food div by ID
+    // append to end of loop
+    $('#display-food').append(results);
 }
 
-// jquery to get values
-
+// jquery -- get values
 
 function addFood(evt) {
     evt.preventDefault();
@@ -27,10 +27,5 @@ function addFood(evt) {
            displayFood);
 }
 
+// event listener
 $("#add-food-form").on("submit", addFood);
-
-
-
-// route returns json (fish)
-
-// add to end of food-display div

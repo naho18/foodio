@@ -111,12 +111,9 @@ def add_food():
     quantity = int(quantity_input)
     added_on = str(datetime.now())
     food_type = request.form['food_type']
-
-    print food_type 
     
     # get user_id from session
     user_id = session['user']
-    print user_id
 
     # add to Food table
     food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()), food_type=food_type)
@@ -132,17 +129,24 @@ def add_food():
     db.session.add(refrigerator)
     db.session.commit()
 
-    flash('item successfully added!')
-
     return jsonify(ingredient)
 
 
-@app.route('/remove-food', methods=['POST'])
+@app.route('/remove-food.json', methods=['POST'])
 def remove_food():
     """Removes ingredient from Food database"""
 
-    user_id = request.form['user_id']
-    food_id = request.form['rm-ingredient']
+    # get user_id from session
+    user_id = session['user']
+
+    # get food_id from form
+    food_info = request.form['rm-ingredient']
+    food_info2 = food_info.split(" ")
+    food_id = food_info2[0]
+    food_name = food_info2[1]
+
+    print food_id
+    print food_name
 
     # query to delete refrigerator by user_id & food_id from Refrigerator table
     del_fridge = Refrigerator.query.filter(
@@ -154,7 +158,7 @@ def remove_food():
     del_food = Food.query.filter(Food.food_id == food_id).delete()
     db.session.commit()
 
-    return redirect('/user-%s' % user_id)
+    return jsonify(food_name)
 
 
 @app.route('/recipes')
