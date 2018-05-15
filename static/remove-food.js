@@ -4,9 +4,14 @@
     // get display-food div by ID
     // remove item from list
 
-    // $("p").filter(":contains('{}')".format(results)).remove();
-    $("p").filter(":contains("+ results +")").remove()
-    // $("p").filter(":contains(' Hello ')").remove()
+    $("text").filter(":contains("+ results +")").remove()
+    
+    // reload/refresh div
+    // $('#remove-food').reload(forceGet);
+    $("#remove-food").load(" #remove-food > *");
+
+    console.log('reload??')
+
 }
 
 // jquery -- get values

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id='remove-food'>
+  <form id='remove-food-form'>
+  Remove ingredient from fridge:<br>
+    <select id="rm-ingredient" name="rm-ingredient">
+      {% for item in user_refrigerator %}
+          <!-- item object of food, at food name -->
+          <option value="{{item.food.food_id}} {{item.food.food}}">{{ item.food.food }}</option>
+      {% endfor %}
+      &nbsp;
+      <input type='submit' value='remove'>
+    </select>
+  </form>
+
+</div>
+
+{% endblock %}

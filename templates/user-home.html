@@ -8,8 +8,8 @@ USER HOME PAGE:
 Available food in refrigerator:<br>
 
 <div id='display-food'>
-  {% for item in user_refrigerator %}<p>
-      {{ item.food.food }} </p>
+  {% for item in user_refrigerator %}<text>
+      {{ item.food.food }} <br></text>
   {% endfor %}
 </div>
 
@@ -40,7 +40,7 @@ Available food in refrigerator:<br>
 <!-- load JS  -->
 
 <script type=text/javascript src="{{
-  url_for('static', filename='user-home.js') }}"></script>
+  url_for('static', filename='add-food.js') }}"></script>
 
 <br><br><br>
 

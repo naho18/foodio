@@ -5,6 +5,10 @@ function displayFood(results) {
     // get display-food div by ID
     // append to end of loop
     $('#display-food').append(results);
+
+    // refresh add & remove foods div
+    $("#add-food").load(" #add-food > *");
+    $("#remove-food").load(" #remove-food > *");
 }
 
 // jquery -- get values
@@ -17,8 +21,6 @@ function addFood(evt) {
         "quantity": $("#quantity").val(),
         "food_type": $("#food_type").val(),
     };
-    console.log('add food');
-    console.log(formInputs);
 
 // send to route
 
