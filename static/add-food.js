@@ -1,12 +1,14 @@
 
 <!-- ////////////////////ADD ITEM TO REFRIGERATOR////////////////////////// -->
+"use strict";
 
 function displayFood(results) {
     // get display-food div by ID
     // append to end of loop
-    $('#display-food').append(results);
+    // $('#display-food').append(results);
 
     // refresh add & remove foods div
+    $('#display-food').load(" #display-food > *");
     $("#add-food").load(" #add-food > *");
     $("#remove-food").load(" #remove-food > *");
 }

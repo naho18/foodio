@@ -160,6 +160,27 @@ def remove_food():
 
     return jsonify(food_name)
 
+@app.route('/food-data.json')
+def get_food_data():
+    """Return food-data"""
+
+    # user_id = session['user']
+    user_id = 2
+    user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
+    food_data = []
+
+    for item in user_refrigerator:    
+        food_data.append({'food': item.food.food, 'quantity': item.food.quantity})
+
+    dataset = {"children": food_data }
+    print dataset
+
+    return jsonify(dataset)
+
+@app.route('/test')
+def test():
+
+    return render_template('bubble.html')
 
 @app.route('/recipes')
 def display_recipes():

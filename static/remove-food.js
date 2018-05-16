@@ -1,4 +1,5 @@
  <!-- ///////////////////REMOVE ITEM TO REFRIGERATOR/////////////////////// -->
+"use strict";
 
  function displayFood2(results) {
     // get display-food div by ID
@@ -7,10 +8,9 @@
     $("text").filter(":contains("+ results +")").remove()
     
     // reload/refresh div
-    // $('#remove-food').reload(forceGet);
+    // $('#display-food').load(" #display-food > *");
     $("#remove-food").load(" #remove-food > *");
 
-    console.log('reload??')
 
 }
 
