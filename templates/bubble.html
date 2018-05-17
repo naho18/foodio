@@ -15,12 +15,13 @@
 
     "use strict";
         // send Ajax request to get data
+        // https://www.w3schools.com/js/js_scope.asp
+
 
         function setData(results) {
-            var dataset = results
-            console.log(results)
+            var dataset = results;
 
-            var diameter = 600;
+            var diameter = 350;
             var color = d3.scaleOrdinal(d3.schemeCategory20);
 
             var bubble = d3.pack(dataset)
@@ -88,13 +89,15 @@
             d3.select(self.frameElement)
                 .style("height", diameter + "px");
 
-            }
+
+        }
 
         function getData() {
             $.get('/food-data.json', setData);
         }
 
-        getData()
+        getData();
+
 
 
     </script>

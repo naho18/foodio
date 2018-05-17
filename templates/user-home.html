@@ -8,9 +8,11 @@ USER HOME PAGE:
 Available food in refrigerator:<br>
 
 <div id='display-food'>
-  {% for item in user_refrigerator %}<text>
-      {{ item.food.food }} <br></text>
-  {% endfor %}
+
+<!-- load js -->
+<script type=text/javascript src="{{
+  url_for('static', filename='display-food.js') }}"></script>
+
 </div>
 
 <br><br>
@@ -70,7 +72,17 @@ Available food in refrigerator:<br>
 
 <a href='/logout'>Log Out</a> 
 
-<!-- ADD INGREDIENTS TO USER REFRIGERATOR -->
+ <!-- ////////////////////////DISPLAY RECIPES ///////////////////////////// -->
+  <div id="display-recipes">
 
+    <div class="col-xs-12 col-md-6">
+
+      <h2>Recipes</h2>
+
+<script type=text/javascript src="{{
+  url_for('static', filename='display-recipes.js') }}"></script>
+      did it work?
+      
+    </div>
 
 {% endblock %}

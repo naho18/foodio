@@ -165,7 +165,7 @@ def get_food_data():
     """Return food-data"""
 
     # user_id = session['user']
-    user_id = 2
+    user_id = 1
     user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
     food_data = []
 
@@ -182,7 +182,7 @@ def test():
 
     return render_template('bubble.html')
 
-@app.route('/recipes')
+@app.route('/recipes.json')
 def display_recipes():
     """Find recipes using Spoonacular API"""
 
@@ -230,20 +230,20 @@ def display_recipes():
     {u'title': u'Smoked Salmon & Scrambled Eggs Recipe', u'image': u'https://spoonacular.com/recipeImages/78568-312x231.jpg', u'missedIngredientCount': 2, u'likes': 121, u'usedIngredientCount': 3, u'id': 78568, u'imageType': u'jpg'}]
 
 
-    return render_template("recipes.html",
-                           body=body)
+    return jsonify(body)
 
 
 ##############################################################################
 
 
-@app.route('/test')
-def testing():
-    """Show test page"""
+# @app.route('/test')
+# def testing():
+#     """Show test page"""
 
-    users = User.query.all()
+#     users = User.query.all()
 
-    return render_template('testing.html', users=users)
+#     return render_template('testing.html', users=users)
+
 if __name__ == "__main__":
     app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
