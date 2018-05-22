@@ -8,7 +8,7 @@
     // $("fooddiv").filter(":contains("+ results +")").remove()
     
     // reload/refresh div
-    $("#remove-food").load(" #remove-food > *");
+    $("#rmfood").load(" #rmfood > *");
     $('#display-food').load(" #display-food > *");
 
 }

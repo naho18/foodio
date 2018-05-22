@@ -18,11 +18,8 @@ form {
 {color:#fff;background-color:red}*/
 
 
-.nav-pills>li.active>a, 
-.nav-pills>li.active>a:focus, 
-.nav-pills>li.active>a:hover {
-  color: #fff;
-  background-color: red;
+.inline {
+  display: inline-block;
 }
 
 

@@ -64,7 +64,7 @@ def login_check():
     # Check user info against database
     email_query = User.query.filter_by(email=user_email).first()
     if email_query == None:
-        flash('Invalid email')
+        flash('Invalid email or password')
         return redirect('/')
 
     # Get user's id using email
@@ -72,15 +72,13 @@ def login_check():
     print user_id
 
     # Valid user password
-    password_query = User.query.filter_by(password=user_password).all()
-
     if user_password == email_query.password:
         #create user session
         session['user'] = email_query.user_id
         flash('You are successfully logged in!')
         return redirect('/user-%s' % user_id)
     else:
-        flash('Invalid password')
+        flash('Invalid email or password')
         return redirect('/')
 
 

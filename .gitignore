@@ -6,3 +6,5 @@ secrets.sh
 testbubble.html
 recipe-info.js
 test.html
+ignore
+static/.DS_Store

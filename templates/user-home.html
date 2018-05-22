@@ -17,7 +17,17 @@
           {{ item.food.food }} <br>
           <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ item.food.food }}.jpg" alt"food-img" style="width:75px;height:75px;" />
           <br>
-          Qty: {{ item.food.quantity }}<br><br>
+          Qty: {{ item.food.quantity }}<br>
+
+          <form id='add' class="inline">
+          <input type='submit' value='+'>
+          </form>
+
+          <form id='subtract' class="inline">
+          <input type='submit' value='-'>
+          </form>
+
+          <br><br>
 
         </div>
 
@@ -27,17 +37,16 @@
 
 <br><br>
 <!-- ////////////////////ADD FOOD TO REFRIDGERATOR ///////////////////////// -->
-
         <div id='add-food'>
 
-          <form id='add-food-form'>
+          <form id='add-food-form' >
           Add 
           <select id='food_type' name="food_type">
-            <option value="1p">protein</option>
-            <option value="2v">vegetables</option>
-            <option value="3f">fruits</option>
-            <option value="4d">dairy</option>
-            <option value="5g">grains</option>
+            <option value="p">protein</option>
+            <option value="v">vegetables</option>
+            <option value="f">fruits</option>
+            <option value="d">dairy</option>
+            <option value="g">grains</option>
           </select> 
           to fridge:<br>
 
@@ -60,16 +69,22 @@
 <!-- //////////////////REMOVE FOOD TO REFRIDGERATOR /////////////////////// -->
 
         <div id='remove-food'>
-          <form id='remove-food-form'>
+
           Remove ingredient from fridge:<br>
+          <form id='remove-food-form'>
+
+           <div id='rmfood'>
             <select id="rm-ingredient" name="rm-ingredient">
               {% for item in user_refrigerator %}
                   <!-- item object of food, at food name -->
                   <option value="{{item.food.food_id}} {{item.food.food}}">{{ item.food.food }}</option>
               {% endfor %}
               &nbsp;
-              <input type='submit' value='remove'>
             </select>
+              </div>
+
+            <input type='submit' value='remove'>
+            
           </form>
       </div>   
 
@@ -86,6 +101,9 @@
             url_for('static', filename='display-recipes.js') }}"></script>
 
         </div>
+
+
+
 
 
 <a href='/logout'>Log Out</a> 

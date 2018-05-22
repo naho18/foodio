@@ -8,15 +8,18 @@ function displayFood(results) {
     // $('#display-food').append(results);
 
     // refresh add & remove foods div
+    console.log(results)
+    console.log("inside display food")
+
     $('#display-food').load(" #display-food > *");
-    $("#add-food").load(" #add-food > *");
-    $("#remove-food").load(" #remove-food > *");
+    $("#rmfood").load(" #rmfood > *");
 }
 
 // jquery -- get values
 
 function addFood(evt) {
     evt.preventDefault();
+    console.log("inside add food")
 
     let formInputs = {
         "ingredient": $("#ingredient").val(),
