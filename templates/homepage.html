@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row">
+  <div class="col">
 
 <b>Log In</b>
 
     <form action="/login" method="POST">
-        Email: <input type="text" name="email">  Password: <input type="password" name="password"><br>
+         Email: <input type="text" name="email">  Password: <input type="password" name="password"><br>
 
         <input type="submit" value="Log In">
     </form>
+  </div>
 
+</div>
 <hr>
 
 <!-- link that takes you to registration form instead  -->
+
+<div class="row">
+  <div class="col">
 <b>Sign Up</b>
 
 <form action='/registration' method="POST">
@@ -22,6 +29,7 @@
     <input type="Submit" value='Sign Up'>
 </form>
 
-
+  </div>
+</div>
 {% endblock %}
 

@@ -1,4 +1,15 @@
 <!-- ////////////////////DISPLAY FOOD TO HOMEPAGE ///////////////////////// -->
+
+
+      <!-- <div id='display-food'> -->
+
+        <!-- load js -->
+         <!-- // <script type=text/javascript src="{{ -->
+        <!-- //   url_for('static', filename='display-food.js') }}"></script> -->
+
+        <!-- </div> -->
+
+
 "use strict";
 
     // function setData(results) {
@@ -20,14 +31,14 @@
 
         var dataset = results;
 
-        var diameter = 350;
+        var diameter = 600;
         var color = d3.scaleOrdinal(d3.schemeCategory20);
 
         var bubble = d3.pack(dataset)
             .size([diameter, diameter])
             .padding(1.5);
 
-        var svg = d3.select("body")
+        var svg = d3.select('#display-food')
             .append("svg")
             .attr("width", diameter)
             .attr("height", diameter)
@@ -87,7 +98,6 @@
 
         d3.select(self.frameElement)
             .style("height", diameter + "px");
-
 
     }
 

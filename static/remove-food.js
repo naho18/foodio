@@ -5,12 +5,11 @@
     // get display-food div by ID
     // remove item from list
 
-    $("text").filter(":contains("+ results +")").remove()
+    // $("fooddiv").filter(":contains("+ results +")").remove()
     
     // reload/refresh div
-    // $('#display-food').load(" #display-food > *");
     $("#remove-food").load(" #remove-food > *");
-
+    $('#display-food').load(" #display-food > *");
 
 }
 

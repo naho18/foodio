@@ -4,7 +4,7 @@
     function displayRecipes(results) {
         var recipes = results;
 
-        var list = []
+        var list = ["<h2>Recipes</h2>"]
 
         for (let recipe of recipes) {
             list.push("<div id='recipediv'>" + recipe['title'] 
@@ -24,9 +24,6 @@
             `Num of Ingredients Needed: ${recipe['missedIngredientCount']} ` 
             + "<br>" + "<br>" + "<br>" + "</div>");
         }
-        console.log(list)
-        console.log(results)
-
 
         $('#display-recipes').html(list);
     }

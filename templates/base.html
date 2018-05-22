@@ -8,18 +8,28 @@
 </head>
 
 <body>
+  <div class="container-fluid">
 
+<nav class="navbar navbar-light">
+  <span class="navbar-text">
     <h2> foodio </h2>
-    
+  </span>
+</nav>
+
+  
      <!-- Show flashed messages -->
       {% with messages = get_flashed_messages() %}
           {% for message in messages %}
-              <div class="alert alert-warning">{{ message }}</div>
+              <div class="alert alert-success" role="alert">
+                {{ message }}
+              </div>
           {% endfor %}
       {% endwith %}
+
 
     {% block content %} CONTENT HERE {% endblock %}
 
 <footer>&copy; Copyright 2018 Foodio</footer>
+  </div>
 </body>
 </html>
