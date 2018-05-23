@@ -24,7 +24,6 @@ function addFood(evt) {
     let formInputs = {
         "ingredient": $("#ingredient").val(),
         "quantity": $("#quantity").val(),
-        "food_type": $("#food_type").val(),
     };
 
 // send to route

@@ -4,7 +4,7 @@
 
  <!-- /////////////////// DISPLAY FOOD IN REFRIGERATOR///////////////////// -->
       
-      Welcome back, {{ user_name }}!
+      Welcome, {{ user_name }}!
 
       <br>Food available in your refrigerator:
       <br><br>
@@ -14,17 +14,23 @@
         {% for item in user_refrigerator %}
         <div id='fooddiv'>
 
-          {{ item.food.food }} <br>
+          {{ item.food.food }}<br>
+          
           <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ item.food.food }}.jpg" alt"food-img" style="width:75px;height:75px;" />
           <br>
-          Qty: {{ item.food.quantity }}<br>
+          
+          Qty: {{ item.food.quantity }} <br>
 
-          <form id='add' class="inline">
-          <input type='submit' value='+'>
+          <form id='add-quantity-form' class="inline">
+          <p hidden id="add-btn-{{ loop.index }}">{{ item.food.food_id }}</p> 
+          <button type='button' id="add-btn-{{ loop.index }}" value='+' onClick="addQuantity(this)">+</button>
           </form>
 
-          <form id='subtract' class="inline">
-          <input type='submit' value='-'>
+          <form id='subtract-quantity-form' class="inline">
+          <p hidden id="sub-btn-{{ loop.index }}">{{ item.food.food_id }}</p> 
+          
+          <button type='button' id="sub-btn-{{ loop.index }}" value='-' onClick="subQuantity(this)">-</button>
+          
           </form>
 
           <br><br>
@@ -33,14 +39,48 @@
 
         {% endfor %}
 
+
       </div>
+
+        <!-- load JS  -->
+        <script type=text/javascript src="{{
+          url_for('static', filename='add-quantity.js') }}"></script>
+
+        <script type=text/javascript src="{{
+          url_for('static', filename='sub-quantity.js') }}"></script>
 
 <br><br>
 <!-- ////////////////////ADD FOOD TO REFRIDGERATOR ///////////////////////// -->
         <div id='add-food'>
 
+
+<!-- http://blog.teamtreehouse.com/creating-autocomplete-dropdowns-datalist-element -->
+<!-- datalist autocomplete dropdown -->
+
+          <datalist id="foods">
+            <option value="apple">            
+            <option value="asparagus">
+            <option value="bananas">
+            <option value="butter">
+            <option value="cauliflower">
+            <option value="celery">
+            <option value="cherries">
+            <option value="egg">
+            <option value="guava">
+            <option value="lemons"> 
+            <option value="mango">
+            <option value="mushrooms">          
+            <option value="milk">                                  
+            <option value="orange">
+            <option value="salmon">
+            <option value="spinach">
+            <option value="strawberries">
+
+          </datalist>
+
+
           <form id='add-food-form' >
-          Add 
+<!--           Add 
           <select id='food_type' name="food_type">
             <option value="p">protein</option>
             <option value="v">vegetables</option>
@@ -48,9 +88,9 @@
             <option value="d">dairy</option>
             <option value="g">grains</option>
           </select> 
-          to fridge:<br>
+          to fridge:<br> -->
 
-            Ingredient: <input type="text" id='ingredient' name="ingredient"><br>
+            Ingredient: <input type="text" id='ingredient' name="ingredient" list="foods"><br>
             Quantity: <input type="text" id='quantity' name="quantity"><br>
           <!--   Expires on:<input type="text" name="expiration"> -->
 

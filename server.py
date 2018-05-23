@@ -13,6 +13,8 @@ import unirest
 import os
 
 from flask import jsonify
+from sqlalchemy import update
+
 
 # create flask app
 app = Flask(__name__)
@@ -75,7 +77,6 @@ def login_check():
     if user_password == email_query.password:
         #create user session
         session['user'] = email_query.user_id
-        flash('You are successfully logged in!')
         return redirect('/user-%s' % user_id)
     else:
         flash('Invalid email or password')
@@ -133,13 +134,13 @@ def add_food():
     quantity_input = request.form['quantity']
     quantity = int(quantity_input)
     added_on = str(datetime.now())
-    food_type = request.form['food_type']
+    # food_type = request.form['food_type']
 
     # get user_id from session
     user_id = session['user']
 
     # add to Food table
-    food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()), food_type=food_type)
+    food = Food(food=ingredient, quantity=quantity, added_on=str(datetime.now()))
     db.session.add(food)
     db.session.commit()
 
@@ -208,70 +209,55 @@ def remove_food():
 #     #r = object
 #     # response list of dictionaries
 
-#     # entire body (all 6 recipes) 
+#     # entire body (all 12 recipes) 
 #     body = r.body
 #     print body
 
 #     return jsonify(body)
 
 
-# @app.route('/individual-recipes.json')
-# def recipes_page():
-#     """Display individual recipes including ingredients and instructions"""
+@app.route('/add-quantity.json')
+def add_quantity():
+    """Increase food quantity by 1"""
 
-#     recipe_id = '351883'
+    # Use Ajax request to get food_id
+    f_id = request.args.get("food-id")
+    print "f_id", f_id
 
-#     payload = {'id': 351883}
+    # Query food quantity
+    f = Food.query.filter(Food.food_id == f_id).one()
 
-#     r = unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/{id}/analyzedInstructions".format(id=351883),
-#       headers={"X-Mashape-Key": os.environ['X_Mashape_Key'],
-#         "Accept": "application/json"}, params=payload
-#     )
+    print "f", f
 
-#     body = r.body
+    # Increment by 1
+    f.quantity += 1
 
-#     print body
+    print "f.quantity", f.quantity
+    db.session.commit()
 
-#     return jsonify(body)
-
-
-@app.route('/user-food')
-def user_food():
-    """display visual of user's food in refrigerator"""
-
-    user_id = session['user']
-    user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
-    ingredients = []
-
-    # create ingredients list to pass to API request
-    for item in user_refrigerator:
-        print item.food.food
-        ingredients.append(item.food.food)
-
-  #   r = unirest.post("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/visualizeIngredients",
-  #   headers={
-  #     "X-Mashape-Key": "dH7bvNMI0jmshZRlJxIdkGumpKSIp1IvotLjsnFKF8FCRtCQf9",
-  #     "Accept": "text/html",
-  #     "Content-Type": "application/x-www-form-urlencoded"
-  #   },
-
-  #   params={
-  #     "defaultCss": 'true',
-  #     "ingredientList": 
-  #     "3 oz flour",
-  #     "measure": "metric",
-  #     "servings": 2,
-  #     "showBacklink": 'true',
-  #     "view": "grid"
-  #   }
-  # )
-
-    # body = r.body
-    # print body
-
-    return render_template('fake-html.html', ingredients=ingredients)
+    return jsonify('result')
 
 
+@app.route('/sub-quantity.json')
+def sub_quantity():
+    """Decrease food quantity by 1"""
+
+    # Use Ajax request to get food_id
+    f_id = request.args.get("food-id")
+    print "f_id", f_id
+
+    # Query food quantity
+    f = Food.query.filter(Food.food_id == f_id).one()
+    print "f", f
+
+    # Increment by 1
+    f.quantity -= 1
+
+    print "f.quantity", f.quantity
+
+    db.session.commit()
+
+    return jsonify('result')
 ##############################################################################
 
 
