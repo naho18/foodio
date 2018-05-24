@@ -10,22 +10,24 @@
         for (let recipe of recipes) {
             // title
             list.push("<div id='recipediv'>" + recipe['title'] + "<br>" + 
+            
             // image with link to recipe
             `<a id=recipe${i} href="https://spoonacular.com/recipes/${recipe['title'].replace(
-                / /g, '-')}-${recipes[0]['id']}">` + "<br>" + 
-            `<img src="${recipe['image']}" alt="Image"></a>` + "<br>" +
+                / /g, '-')}-${recipe['id']}">` + "<br>" + 
+            `<img id=recipe${i} src="${recipe['image']}" alt="Image"></a>` + "<br>" +
+            
             // ingredient data
             `Num of Ingredients Used: ${recipe['usedIngredientCount']} ` + "<br>" +
             `Num of Ingredients Needed: ${recipe['missedIngredientCount']} ` + 
             
-            // `<p hidden id=recipe${i}>
-            //   spoonacular.com/recipes/${recipe['title'].replace(/ /g, '-')}-${recipes[0]['id']}
-            // </p>`
-
+            // recipe title
+            `<p hidden id=recipe${i} value="${recipe['title']}"> </p>` +
 
             // button
             `<button type='button' id=recipe${i} onClick="favRecipes(this)">&hearts;</button>`
             + "<br>" + "<br>" + "</div>");
+            
+            // increment i by 1
             i += 1
 
         }
@@ -45,15 +47,18 @@
     function favRecipes(param) {
 
         let link = $(`a#${param.id}`).attr("href");
-        let img = $('img').attr("src");
+        let img = $(`img#${param.id}`).attr("src");
+        let title = $(`p#${param.id}`).attr("value");
 
+        console.log(title)
         console.log(link)
         console.log(img)
         console.log("inside fav-recipes")
 
         let formInputs = {
             "fav-url": link,
-            "img" : img
+            "img" : img,
+            "title" : title
         }
 
         console.log(formInputs);

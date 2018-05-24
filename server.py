@@ -293,8 +293,12 @@ def fav_recipes():
     #Use Ajax request to get data
     url = request.args.get("fav-url")
     img = request.args.get("img")
+    title = request.args.get("title")
 
-    print "**********", url, img
+    print "**********" 
+    print url
+    print img
+    print title
 
     #Add to database
 
