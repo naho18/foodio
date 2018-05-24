@@ -100,12 +100,25 @@ def display_homepage(user_id):
     print user_refrigerator
 
     user = User.query.filter_by(user_id=user_id).all()
+
     user_name = user[0].name
+    food_list = ['almond-milk', 'apple', 'asparagus', 'bacon', 'bananas', 
+                'blueberries', 'broccoli', 'brussels-sprouts', 'butter', 'cabbage',
+                'carrots', 'cauliflower', 'celery', 'cherries', 'cream-cheese', 
+                'corn', 'cucumber', 'egg', 'green-bell-pepper', 'guava', 'hummus', 
+                'jalapeno-pepper', 'lemons', 'lemongrass', 'mango', 'mushrooms',
+                'milk', 'okra', 'orange', 'orange-juice', 'peanut-butter', 
+                'pineapple', 'raspberries','red-bell-pepper', 'rib', 'salmon', 
+                'shrimp', 'spinach', 'strawberries', 'strawberry-jam', 
+                'tofu','tomato', 'watermelon', 'yellow-bell-pepper', 
+                'yellow-squash', 'zucchini'
+                ]
 
     return render_template('user-home.html', 
                             user_id=user_id, 
                             user_refrigerator=user_refrigerator,
-                            user_name=user_name)
+                            user_name=user_name,
+                            food_list=food_list)
 
 
 @app.route('/food-data.json')
@@ -185,35 +198,48 @@ def remove_food():
     return jsonify(food_name)
 
 
-# @app.route('/recipes.json')
-# def display_recipes():
-#     """Find recipes using Spoonacular API"""
+@app.route('/recipes.json')
+def display_recipes():
+    """Find recipes using Spoonacular API"""
 
-#     user_id = session['user']
-#     user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
-#     ingredients = ""
+    user_id = session['user']
+    user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
+    ingredients = ""
 
-#     # create ingredients list to pass to API request
-#     for item in user_refrigerator:
-#         print item.food.food
-#         ingredients += item.food.food + ", "
+    # create ingredients list to pass to API request
+    for item in user_refrigerator:
+        print item.food.food
+        ingredients += item.food.food + ", "
 
-#     payload = {'fillIngredients': 'false', 'ingredients': ingredients, 'limitLicense': 'false', 'number':12, 'ranking':1}
+    payload = {'fillIngredients': 'false', 'ingredients': ingredients, 'limitLicense': 'false', 'number':6, 'ranking':1}
 
-#     r = unirest.get(
-#         "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients", 
-#         headers={"X-Mashape-Key": os.environ['X_Mashape_Key'],
-#         "Accept": "application/json"}, params=payload
-#     )
+    # r = unirest.get(
+    #     "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients", 
+    #     headers={"X-Mashape-Key": os.environ['X_Mashape_Key'],
+    #     "Accept": "application/json"}, params=payload
+    # )
 
-#     #r = object
-#     # response list of dictionaries
+    # body = r.body
 
-#     # entire body (all 12 recipes) 
-#     body = r.body
-#     print body
+    body = [
+    {u'title': u'Fried Shrimp Rolls', u'image': u'https://spoonacular.com/recipeImages/743121-312x231.jpeg', 
+    u'missedIngredientCount': 9, u'likes': 97, u'usedIngredientCount': 4, u'id': 743121, u'imageType': u'jpeg'}, 
 
-#     return jsonify(body)
+    {u'title': u'Salmon Burger with Dill/Caper Tartar Sauce and Red Onion Ceviche', u'image': u'https://spoonacular.com/recipeImages/767322-312x231.jpg', 
+    u'missedIngredientCount': 12, u'likes': 0, u'usedIngredientCount': 4, u'id': 767322, u'imageType': u'jpg'}, 
+
+    {u'title': u'Green Goddess Salmon Burgers', u'image': u'https://spoonacular.com/recipeImages/880658-312x231.jpg', u'missedIngredientCount': 15, u'likes': 0, 
+    u'usedIngredientCount': 4, u'id': 880658, u'imageType': u'jpg'}, 
+
+    {u'title': u"Seafood Po' Boy with Umami Remoulade", u'image': u'https://spoonacular.com/recipeImages/770137-312x231.jpeg', u'missedIngredientCount': 17, u'likes': 4, u'usedIngredientCount': 4, u'id': 770137, u'imageType': u'jpeg'}, 
+
+    {u'title': u'Zesty Salmon Burgers with Dill Spread', u'image': u'https://spoonacular.com/recipeImages/595943-312x231.jpg', u'missedIngredientCount': 20, u'likes': 674, u'usedIngredientCount': 4, u'id': 595943, u'imageType': u'jpg'}, 
+
+    {u'title': u'Smoked Salmon & Scrambled Eggs Recipe', u'image': u'https://spoonacular.com/recipeImages/78568-312x231.jpg', u'missedIngredientCount': 2, u'likes': 121, u'usedIngredientCount': 3, u'id': 78568, u'imageType': u'jpg'}]
+
+    print body
+
+    return jsonify(body)
 
 
 @app.route('/add-quantity.json')
@@ -258,6 +284,23 @@ def sub_quantity():
     db.session.commit()
 
     return jsonify('result')
+
+
+@app.route('/fav-recipes.json')
+def fav_recipes():
+    """Favorite recipe and store URL in Recipe table"""
+
+    #Use Ajax request to get data
+    url = request.args.get("fav-url")
+    img = request.args.get("img")
+
+    print "**********", url, img
+
+    #Add to database
+
+    return jsonify('result')
+
+
 ##############################################################################
 
 

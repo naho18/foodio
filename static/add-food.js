@@ -13,6 +13,8 @@ function displayFood(results) {
 
     $('#display-food').load(" #display-food > *");
     $("#rmfood").load(" #rmfood > *");
+    $("#addfood").load(" #addfood > *");
+
 }
 
 // jquery -- get values

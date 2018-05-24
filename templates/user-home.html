@@ -14,23 +14,21 @@
         {% for item in user_refrigerator %}
         <div id='fooddiv'>
 
-          {{ item.food.food }}<br>
-          
+          <!-- food name, image, quantity -->
+          {{ item.food.food }} <br>
           <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ item.food.food }}.jpg" alt"food-img" style="width:75px;height:75px;" />
-          <br>
-          
-          Qty: {{ item.food.quantity }} <br>
+          <br>Qty: {{ item.food.quantity }} <br>
 
+          <!-- add button -->
           <form id='add-quantity-form' class="inline">
           <p hidden id="add-btn-{{ loop.index }}">{{ item.food.food_id }}</p> 
           <button type='button' id="add-btn-{{ loop.index }}" value='+' onClick="addQuantity(this)">+</button>
           </form>
 
+          <!-- subtract button -->
           <form id='subtract-quantity-form' class="inline">
           <p hidden id="sub-btn-{{ loop.index }}">{{ item.food.food_id }}</p> 
-          
           <button type='button' id="sub-btn-{{ loop.index }}" value='-' onClick="subQuantity(this)">-</button>
-          
           </form>
 
           <br><br>
@@ -38,7 +36,6 @@
         </div>
 
         {% endfor %}
-
 
       </div>
 
@@ -58,8 +55,14 @@
 <!-- datalist autocomplete dropdown -->
 
           <datalist id="foods">
-            <option value="apple">            
-            <option value="asparagus">
+
+            {% for food in food_list %}
+              <option value="{{ food }}">  
+            {% endfor %}
+
+          </datalist>
+
+<!--             <option value="asparagus">
             <option value="bananas">
             <option value="butter">
             <option value="cauliflower">
@@ -74,26 +77,17 @@
             <option value="orange">
             <option value="salmon">
             <option value="spinach">
-            <option value="strawberries">
+            <option value="strawberries"> -->
 
-          </datalist>
 
 
           <form id='add-food-form' >
-<!--           Add 
-          <select id='food_type' name="food_type">
-            <option value="p">protein</option>
-            <option value="v">vegetables</option>
-            <option value="f">fruits</option>
-            <option value="d">dairy</option>
-            <option value="g">grains</option>
-          </select> 
-          to fridge:<br> -->
+
+          Add to fridge:<br>
 
             Ingredient: <input type="text" id='ingredient' name="ingredient" list="foods"><br>
             Quantity: <input type="text" id='quantity' name="quantity"><br>
           <!--   Expires on:<input type="text" name="expiration"> -->
-
             <input type='submit' value='add'>
           </form>
         </div>  
@@ -110,9 +104,8 @@
 
         <div id='remove-food'>
 
-          Remove ingredient from fridge:<br>
           <form id='remove-food-form'>
-
+          Remove from fridge:<br>
            <div id='rmfood'>
             <select id="rm-ingredient" name="rm-ingredient">
               {% for item in user_refrigerator %}
