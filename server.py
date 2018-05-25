@@ -290,19 +290,36 @@ def sub_quantity():
 def fav_recipes():
     """Favorite recipe and store URL in Recipe table"""
 
+    # get user_id from session
+    user_id = session['user']
+
     #Use Ajax request to get data
+    title = request.args.get("title")    
     url = request.args.get("fav-url")
     img = request.args.get("img")
-    title = request.args.get("title")
 
-    print "**********" 
-    print url
-    print img
-    print title
 
-    #Add to database
+    # Check user info against database
+    recipe_query = Recipe.query.filter_by(user_id=user_id, title=title).first()
 
-    return jsonify('result')
+    if recipe_query == None:
+        recipe = Recipe(user_id=user_id, title=title, url=url, img=img)
+        db.session.add(recipe)
+        db.session.commit()
+        print "****** added to db"
+
+        flash('Recipe added to favorites!')
+        print "ADDED TO FAVS"
+
+    else:
+        flash('Recipe already in favorites!')
+        print "ALREADY IN FAVS"
+
+    # # Send list to fav recipes to 
+    fav_recipes = Recipe.query.filter_by(user_id=user_id).all()
+
+
+    return jsonify("favs")
 
 
 ##############################################################################

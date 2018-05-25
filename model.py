@@ -36,13 +36,12 @@ class Food(db.Model):
     quantity = db.Column(db.Integer)
     added_on = db.Column(db.DateTime)
     expires_on = db.Column(db.DateTime)
-    food_type = db.Column(db.String(10))
 
     def __repr__(self):
         """Show information about food in refrigerator"""
 
-        return "<food_id= %s food= %s quantity= %d food_type=%s>" % (
-            self.food_id, self.food, self.quantity, self.food_type)
+        return "<food_id= %s food= %s quantity= %d>" % (
+            self.food_id, self.food, self.quantity)
 
 
 class Refrigerator(db.Model):
@@ -71,8 +70,10 @@ class Recipe(db.Model):
     __tablename__ = "recipes"
 
     recipe_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    url = db.Column(db.String(256), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    title = db.Column(db.String(256), nullable=False)
+    url = db.Column(db.String(256), nullable=False)
+    img = db.Column(db.String(256), nullable=False)
 
     #create relationship with User table
     user = db.relationship('User', backref='recipes')
@@ -106,9 +107,9 @@ def example_data():
     db.session.commit()
 
     # FOODS
-    f1 = Food(food='tomato', quantity='2', added_on='2018-05-07', food_type='2v')
-    f2 = Food(food='salmon', quantity='1', added_on='2018-05-07', food_type='1p')
-    f3 = Food(food='lemon', quantity='3', added_on='2018-05-07', food_type='3f')
+    f1 = Food(food='tomato', quantity='2', added_on='2018-05-07')
+    f2 = Food(food='salmon', quantity='1', added_on='2018-05-07')
+    f3 = Food(food='lemon', quantity='3', added_on='2018-05-07')
     
     db.session.add_all([f1, f2, f3])
     db.session.commit()

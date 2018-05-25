@@ -1,34 +1,36 @@
 <!-- ///////////////////////////FAVORITE RECIPES ////////////////////////// -->
 "use strict";
 
-function displayFavs(results) {
-    // refresh display food
-    console.log("inside displayFavs")
 
-    // $('#display-food').load(" #display-food > *");
-}
+export function favRecipes(param) {
+
+        let link = $(`a#${param.id}`).attr("href");
+        let img = $(`img#${param.id}`).attr("src");
+        let title = $(`p#${param.id}`).attr("value");
+
+        console.log(title)
+        console.log(link)
+        console.log(img)
+        console.log("inside fav-recipes")
+
+        let formInputs = {
+            "fav-url": link,
+            "img" : img,
+            "title" : title
+        }
+
+        console.log(formInputs);
+
+    // send to route
+        $.get("/fav-recipes.json", 
+               formInputs,
+               displayFavs);
+    };
 
 
-function favRecipes(param) {
 
-    let url = document.querySelector(`a#${param.id}`);
+    function displayFavs(results) {
+        // refresh display food
+        console.log("inside displayFavs")
 
-    console.log(url.innerText)
-
-    console.log("inside fav-recipes")
-
-    let formInputs = {
-        "fav-url": url.innerText,
-    }
-
-    console.log(formInputs);
-
-
-// send to route
-
-    $.get("/fav-recipes.json", 
-           formInputs,
-           displayFavs);
-}
-
-export {favRecipes};
+// export {favRecipes};

@@ -70,8 +70,23 @@
     }
 
     function displayFavs(results) {
-        // refresh display food
-        console.log("inside displayFavs")
+        var favlist = ["<h2>Favorite Recipes</h2>"];
+
+        console.log(results);
+
+        // loop over results to display recipe
+        for (let recipe of results) {
+            // title
+            list.push(`<div id='favrecipes'>recipe[0] <br>
+            <a href="${recipe[1]}"><br>
+            <img src"${recipe[2]}" alt="Image"></a><br><br>
+            `)
+
+        }
+
+        console.log(results)
+
+        $('#display-favs').html(favlist);
 
         // $('#display-food').load(" #display-food > *");
     }
