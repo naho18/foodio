@@ -36,8 +36,21 @@ input[type=submit] {
     border-radius: 20px;
 }
 
+input[type=reset] {
+    background-color: red;
+    color: white;
+    font-size: 50%;
+    padding: 0.25em 1em;
+    border-radius: 20px;
+}
 
 #recipediv {
+  display: inline-block;
+  width: 350px;
+  height: 250px;
+}
+
+#favdiv {
   display: inline-block;
   width: 350px;
   height: 250px;

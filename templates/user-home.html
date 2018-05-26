@@ -39,6 +39,7 @@
 
       </div>
 
+
         <!-- load JS  -->
         <script type=text/javascript src="{{
           url_for('static', filename='add-quantity.js') }}"></script>
@@ -89,6 +90,7 @@
             Quantity: <input type="text" id='quantity' name="quantity"><br>
           <!--   Expires on:<input type="text" name="expiration"> -->
             <input type='submit' value='add'>
+            <input type="reset" value="reset">
           </form>
         </div>  
 
@@ -132,15 +134,35 @@
 
         </div>
 
- <!-- /////////////////////DISPLAY FAVORITE RECIPES //////////////////////// -->
-
-        <div id="display-favs">
-
-        </div>
-
       <!-- load js -->
           <script type=text/javascript src="{{
             url_for('static', filename='display-recipes.js') }}"></script>
+      <br><br><br>
+
+ <!-- /////////////////////DISPLAY FAVORITE RECIPES //////////////////////// -->
+
+        <div id="display-favs">
+          <h2>Favorite Recipes</h2>
+
+            {% for item in fav_recipes %}
+
+            <div id='favdiv'>
+
+            {{ item.title }} <br>
+            <a href="{{ item.url }}">
+            <img src="{{ item.img}}" alt="Image"></a>
+
+            <br>
+            <!-- Delete button goes here -->
+            
+            <br><br>
+
+            </div>
+            {% endfor %}
+
+
+        </div>
+<br><br><br>
 
 
 

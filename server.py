@@ -114,11 +114,16 @@ def display_homepage(user_id):
                 'yellow-squash', 'zucchini'
                 ]
 
+    
+    # Query fav recipes to display on homepage
+    fav_recipes = Recipe.query.filter_by(user_id=user_id).all()
+
     return render_template('user-home.html', 
                             user_id=user_id, 
                             user_refrigerator=user_refrigerator,
                             user_name=user_name,
-                            food_list=food_list)
+                            food_list=food_list,
+                            fav_recipes=fav_recipes)
 
 
 @app.route('/food-data.json')
@@ -314,10 +319,6 @@ def fav_recipes():
     else:
         flash('Recipe already in favorites!')
         print "ALREADY IN FAVS"
-
-    # # Send list to fav recipes to 
-    fav_recipes = Recipe.query.filter_by(user_id=user_id).all()
-
 
     return jsonify("favs")
 
