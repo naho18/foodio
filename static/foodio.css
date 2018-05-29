@@ -44,7 +44,7 @@ input[type=reset] {
     border-radius: 20px;
 }
 
-#recipediv {
+#api-recipes {
   display: inline-block;
   width: 350px;
   height: 250px;

@@ -3,13 +3,12 @@
     function displayRecipes(results) {
         var recipes = results;
 
-        var list = ["<h2>Recipes</h2>"]
-
+        let apiRecipes = []
         let i = 0
 
         for (let recipe of recipes) {
             // title
-            list.push("<div id='recipediv'>" + recipe['title'] + "<br>" + 
+            apiRecipes.push("<div id='api-recipes'>" + recipe['title'] + "<br>" + 
             
             // image with link to recipe
             `<a id=recipe${i} href="https://spoonacular.com/recipes/${recipe['title'].replace(
@@ -32,7 +31,7 @@
 
         }
 
-        $('#display-recipes').html(list);
+        $('#api-recipes').html(apiRecipes);
     }
 
 // id=recipe${i}
@@ -74,4 +73,12 @@
         // refresh fav recipes 
 
         $('#display-favs').load(" #display-favs > *");
+    }
+
+
+    function refreshRecipes() {
+        getRecipes();
+        console.log("inside refresh recipes")
+
+        // $('#display-recipes').load(" #display-recipes > *");
     }
