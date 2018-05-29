@@ -2,7 +2,7 @@
 "use strict";
 
 
-export function favRecipes(param) {
+    function favRecipes(param) {
 
         let link = $(`a#${param.id}`).attr("href");
         let img = $(`img#${param.id}`).attr("src");

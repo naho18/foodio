@@ -323,6 +323,23 @@ def fav_recipes():
     return jsonify("favs")
 
 
+@app.route('/del-favs.json')
+def del_recipes():
+    """Delete a favorited recipe"""
+
+
+    user_id = session['user']
+    title = request.args.get("title")
+
+    del_recipe = Recipe.query.filter(
+        Recipe.user_id==user_id, Recipe.title==title).delete()
+    
+    db.session.commit()
+
+
+
+    return ('results from del-favs')
+
 ##############################################################################
 
 

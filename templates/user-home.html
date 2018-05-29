@@ -154,15 +154,21 @@
 
             <br>
             <!-- Delete button goes here -->
-            
+            <form id='delete-fav' class="inline">
+            <button type='button' id="del-btn-{{ loop.index }}" value="{{ item.title }}" onClick="delRecipe(this)">delete</button>
+            </form>
             <br><br>
 
             </div>
             {% endfor %}
 
-
         </div>
+
+        <!-- load js -->
+          <script type=text/javascript src="{{
+            url_for('static', filename='del-fav.js') }}"></script>
 <br><br><br>
+
 
 
 
