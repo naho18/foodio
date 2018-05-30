@@ -135,15 +135,16 @@
           <button type='button' id='get-recipes' onClick="refreshRecipes(this)">
             Get Recipes!</button><br><br>
 
-            <div id="api-recipes" class="inline">
+            <div id='recipediv'>
 
+            <script type=text/javascript src="{{
+              url_for('static', filename='display-recipes.js') }}"></script>
+            
             </div>
 
         </div>
 
-      <!-- load js -->
-          <script type=text/javascript src="{{
-            url_for('static', filename='display-recipes.js') }}"></script>
+
       <br><br><br>
 
  <!-- /////////////////////DISPLAY FAVORITE RECIPES //////////////////////// -->

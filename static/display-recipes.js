@@ -8,7 +8,7 @@
 
         for (let recipe of recipes) {
             // title
-            apiRecipes.push("<div id='api-recipes'>" + recipe['title'] + "<br>" + 
+            apiRecipes.push("<div id='api-recipes' class='inline'>" + recipe['title'] + "<br>" + 
             
             // image with link to recipe
             `<a id=recipe${i} href="https://spoonacular.com/recipes/${recipe['title'].replace(
@@ -22,7 +22,7 @@
             // recipe title
             `<p hidden id=recipe${i} value="${recipe['title']}"> </p>` +
 
-            // button
+            // Add to favorites button
             `<button type='button' id=recipe${i} onClick="favRecipes(this)">&hearts;</button>`
             + "<br>" + "<br>" + "</div>");
             
@@ -31,7 +31,7 @@
 
         }
 
-        $('#api-recipes').html(apiRecipes);
+        $('#recipediv').html(apiRecipes);
     }
 
 // id=recipe${i}
