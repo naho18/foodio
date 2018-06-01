@@ -243,8 +243,32 @@ class FoodioTestsSession(unittest.TestCase):
                                 'img': 'https://img.com/recipeImages'})
         
         self.assertEqual(result.status_code, 200)
-        self.assertIn('Most Delicious Recipe Ever', result.data)
-        print "pass API recipe data"
+        self.assertIn('Recipe added to favorites!', result.data)
+        print "pass fav recipes - not in favs"
+
+
+    def test_fav_recipes2(self):
+        """Test favoriting recipes - already in favs"""
+
+        result = self.client.get('/fav-recipes.json',
+                                query_string={'title': 'Smoked Salmon & Scrambled Eggs Recipe', 
+                                'fav-url': 'https://spoonacular.com/recipes/Smoked-Salmon-&-Scrambled-Eggs-Recipe-78568',
+                                'img': 'https://spoonacular.com/recipeImages/78568-312x231.jpg'})
+        
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('Recipe already in favorites!', result.data)
+        print "pass fav recipes - already in favs"
+
+
+    def test_del_recipes(self):
+        """Test deleting favorite recipes"""
+
+        result = self.client.get('/del-favs.json',
+                                query_string={'title': 'Smoked Salmon & Scrambled Eggs Recipe'})
+        
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('deleted from favs', result.data)
+        print "pass deleting from favs"
 
 
 if __name__ == '__main__':

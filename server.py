@@ -315,15 +315,16 @@ def fav_recipes():
         db.session.add(recipe)
         db.session.commit()
         print "****** added to db"
-
-        flash('Recipe added to favorites!')
         print "ADDED TO FAVS"
 
+        return jsonify('Recipe added to favorites!')
+    
     else:
-        flash('Recipe already in favorites!')
-        print "ALREADY IN FAVS"
+        print "ALREADY IN FAVS"        
+        return jsonify('Recipe already in favorites!')
 
-    return jsonify(title)
+
+
 
 
 @app.route('/del-favs.json')
@@ -340,8 +341,7 @@ def del_recipes():
     db.session.commit()
 
 
-
-    return ('results from del-favs')
+    return jsonify('deleted from favs')
 
 ##############################################################################
 
