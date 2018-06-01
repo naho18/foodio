@@ -255,11 +255,11 @@ def add_quantity():
     """Increase food quantity by 1"""
 
     # Use Ajax request to get food_id
-    f_id = request.args.get("food-id")
+    f_id = request.args.get('food-id')
     print "f_id", f_id
 
     # Query food quantity
-    f = Food.query.filter(Food.food_id == f_id).one()
+    f = Food.query.get(f_id)
 
     print "f", f
 
@@ -267,9 +267,9 @@ def add_quantity():
     f.quantity += 1
 
     print "f.quantity", f.quantity
-    db.session.commit()
+    # db.session.commit()
 
-    return jsonify('result')
+    return jsonify(f.quantity)
 
 
 @app.route('/sub-quantity.json')
@@ -291,7 +291,7 @@ def sub_quantity():
 
     db.session.commit()
 
-    return jsonify('result')
+    return jsonify(f.quantity)
 
 
 @app.route('/fav-recipes.json')
@@ -323,7 +323,7 @@ def fav_recipes():
         flash('Recipe already in favorites!')
         print "ALREADY IN FAVS"
 
-    return jsonify("favs")
+    return jsonify(title)
 
 
 @app.route('/del-favs.json')

@@ -40,7 +40,7 @@ class FoodioSetup(unittest.TestCase):
         print "pass index"
 
 
-    def test_registration(self):
+    def test_register_user(self):
         """Test registration - successful"""
 
         result = self.client.post('/registration', 
@@ -54,7 +54,7 @@ class FoodioSetup(unittest.TestCase):
         print "pass registration - successful"
 
 
-    def test_registration2(self):
+    def test_register_user2(self):
         """Test registration - unsuccessful"""
 
         result = self.client.post('/registration', 
@@ -186,19 +186,21 @@ class FoodioTestsSession(unittest.TestCase):
         print "pass add food"
 
 
-    # def test_remove_food(self):
-    #     """Test remove food"""
+    def test_remove_food(self):
+        """Test remove food"""
 
-    #     result = self.client.post('/remove-food.json', 
-    #                             data={'rm-ingredient': '4 cantaloupe'}, 
-    #                             follow_redirects=True)
+        result = self.client.post('/remove-food.json', 
+                                data={'rm-ingredient': '4 tuna'}, 
+                                follow_redirects=True)
 
-    #     self.assertEqual(result.status_code, 200)
-    #     self.assertNotIn('cantaloupe', result.data)
-    #     print "pass remove food"
+        self.assertEqual(result.status_code, 200)
+
+        #check json result for food to delete
+        self.assertIn('tuna', result.data)
+        print "pass remove food"
 
 
-    def test_API(self):
+    def test_API_recipes(self):
         """Test displaying recipes via API"""
 
         result = self.client.get('/recipes.json')
@@ -208,16 +210,41 @@ class FoodioTestsSession(unittest.TestCase):
         print "pass API recipe data"
 
 
-    # def test_add_quantity(self):
-    #     """Test incrementing quantity by 1"""
+    def test_add_quantity(self):
+        """Test incrementing quantity by 1"""
 
-    #     result = self.client.get('/add-quantity.json',
-    #                             data={'food-id': '4'},
-    #                             follow_redirects=True)
+        result = self.client.get('/add-quantity.json',
+                                query_string={'food-id': '1'},
+                                follow_redirects=True)
+
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('3', result.data)
+        print "pass add food quantity"
+
+
+    def test_sub_quantity(self):
+        """Test decreasing food quantity by 1"""
+
+        result = self.client.get('/sub-quantity.json',
+                                query_string={'food-id': '3'},
+                                follow_redirects=True)
+
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('2', result.data)
+        print "pass subtract food quantity"
+
+
+    def test_fav_recipes(self):
+        """Test favoriting recipes - not already in favs"""
+
+        result = self.client.get('/fav-recipes.json',
+                                query_string={'title': 'Most Delicious Recipe Ever', 
+                                'fav-url': 'https://recipes.com/bestEver',
+                                'img': 'https://img.com/recipeImages'})
         
-    #     self.assertEqual(result.status_code, 200)
-    #     self.assertIn('106', result.data)
-    #     print "pass add quantity"
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('Most Delicious Recipe Ever', result.data)
+        print "pass API recipe data"
 
 
 if __name__ == '__main__':

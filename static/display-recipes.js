@@ -1,4 +1,4 @@
- / has class vs removeClass
+ // has class vs removeClass
 
 
 "use strict"; 

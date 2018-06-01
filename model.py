@@ -110,6 +110,7 @@ def example_data():
     f1 = Food(food='tomato', quantity='2', added_on='2018-05-07')
     f2 = Food(food='salmon', quantity='1', added_on='2018-05-07')
     f3 = Food(food='lemon', quantity='3', added_on='2018-05-07')
+    f4 = Food(food='tuna', quantity='4', added_on='2018-06-01')
     
     db.session.add_all([f1, f2, f3])
     db.session.commit()
@@ -120,6 +121,18 @@ def example_data():
     r3 = Refrigerator(user_id='2', food_id='3')
     
     db.session.add_all([r1, r2, r3])
+    db.session.commit()
+
+    # RECIPES
+    rs1 = Recipe(user_id=2, title = 'Zesty Salmon Burgers with Dill Spread',
+        url='https://spoonacular.com/recipes/Zesty-Salmon-Burgers-with-Dill-Spread-595943',
+        img='https://spoonacular.com/recipeImages/595943-312x231.jpg')
+
+    rs2 = Recipe(user_id=2, title = 'Smoked Salmon & Scrambled Eggs Recipe',
+        url='https://spoonacular.com/recipes/Smoked-Salmon-&-Scrambled-Eggs-Recipe-78568',
+        img='https://spoonacular.com/recipeImages/78568-312x231.jpg')
+
+    db.session.add_all([rs1, rs2])
     db.session.commit()
 
     # print "ADDED TO DB"
