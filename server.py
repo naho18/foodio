@@ -85,10 +85,12 @@ def login_check():
 
 @app.route('/logout')
 def logout():
-    session.pop('user')
-    flash('You were successfully logged out')
-
-    return redirect('/')
+    if session:
+        session.pop('user')
+        flash('You were successfully logged out')
+        return redirect('/')
+    else:
+        return redirect('/')
 
 
 @app.route('/user-<user_id>')
@@ -106,7 +108,7 @@ def display_homepage(user_id):
                 'blueberries', 'broccoli', 'brussels-sprouts', 'butter', 'cabbage',
                 'carrots', 'cauliflower', 'celery', 'cherries', 'cream-cheese', 
                 'corn', 'cucumber', 'egg', 'green-bell-pepper', 'guava', 'hummus', 
-                'jalapeno-pepper', 'lemons', 'lemongrass', 'mango', 'mushrooms',
+                'jalapeno-pepper', 'lemon', 'lemons', 'lemongrass', 'mango', 'mushrooms',
                 'milk', 'okra', 'orange', 'orange-juice', 'peanut-butter', 
                 'pineapple', 'raspberries','red-bell-pepper', 'rib', 'salmon', 
                 'shrimp', 'spinach', 'strawberries', 'strawberry-jam', 
@@ -164,6 +166,7 @@ def add_food():
 
     # get food_id
     food_id = food.food_id
+    print "food_id", food_id
     print food.food_id
 
     # add to Refrigerator table

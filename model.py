@@ -82,11 +82,11 @@ class Recipe(db.Model):
 # create helper functions
 
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri='postgresql:///foodio'):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///foodio'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # connect db to app
@@ -122,7 +122,7 @@ def example_data():
     db.session.add_all([r1, r2, r3])
     db.session.commit()
 
-    print "ADDED TO DB"
+    # print "ADDED TO DB"
 
 
 if __name__ == "__main__":

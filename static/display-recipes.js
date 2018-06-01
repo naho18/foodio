@@ -1,3 +1,6 @@
+ / has class vs removeClass
+
+
 "use strict"; 
 
     function displayRecipes(results) {
@@ -52,6 +55,11 @@
         console.log(title)
         console.log(link)
         console.log(img)
+
+
+        $(`button#${param.id}`).attr('style', 'background-color:red; color:white; padding: 0.25em 1em; border-radius: 20px;');
+
+
         console.log("inside fav-recipes")
 
         let formInputs = {
