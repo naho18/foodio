@@ -14,9 +14,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2 {
+h1 {
     color: red;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Pacifico', cursive;
     font-style: italic;
     text-align: center;
     padding-bottom: 10px;
@@ -40,7 +40,7 @@ h1, h2 {
 input[type="text"], input[type="password"] {
   width: 300px;
   padding: 10px 0px;
-  background: transparent;
+  /*background: transparent;*/
   border: 0;
   border-bottom: 1px solid red;
   border-radius: 0;

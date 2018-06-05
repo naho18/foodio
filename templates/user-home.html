@@ -1,19 +1,75 @@
 {% extends 'base.html' %}
 
 {% block styles %}
+
   <link href="static/foodio.css" rel="stylesheet">
 {% endblock %}
 
 
 {% block content %}
 
+  <nav id="user-home" class="navbar navbar-expand-lg navbar-dark" style="background-color: red;">
+    <span id="logo" class="navbar-brand" href="#">Foodio</span>
 
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+
+       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#my-refrigerator">My Refrigerator</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#recipes">Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#favorites">Favorites</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+  <br><br>
+
+  <div class="jumbotron">
+    <div id='jumbotext'>
+
+  <h1>
+    <span>Welcome, {{ user_name }}!</span></h1>
+
+  <p><span>Dinner made easy with Foodio!</span></p>
+  <hr>
+  <p> <br>
+    <span>Virtually maintain your refrigerator to find delicious recipes with ingredients you already have! Yumm!</span></p>
+  
+  <a class="btn" href="#my-refrigerator" role="button">Get started</a>
+  </div>
+</div>
+
+
+
+
+
+  <!-- <h3>Welcome, {{ user_name }}!</h3> -->
+  <br><br>
+
+
+
+
+
+<div data-spy="scroll" data-target="#user-home" data-offset="0">
+
+
+  <h3 id="my-refrigerator">My Refrigerator</h3>
+  <p>
  <!-- /////////////////// DISPLAY FOOD IN REFRIGERATOR///////////////////// -->
-      
-      Welcome, {{ user_name }}!
 
-      <br>Food available in your refrigerator:
-      <br><br>
+      <br>
 
       <div id='display-food'>
 
@@ -54,7 +110,13 @@
           url_for('static', filename='sub-quantity.js') }}"></script>
 
 <br><br>
-<!-- ////////////////////ADD FOOD TO REFRIDGERATOR ///////////////////////// -->
+
+
+<div class="row">
+
+  <div class="col d-flex">
+
+    <!-- ////////////////////ADD FOOD TO REFRIDGERATOR ///////////////////////// -->
         <div id='add-food'>
 
 
@@ -90,7 +152,7 @@
 
           <form id='add-food-form' >
 
-          Add to fridge:<br>
+          <b>Add to fridge:</b><br>
 
             Ingredient: <input type="text" id='ingredient' name="ingredient" list="foods"><br>
             Quantity: <input type="text" id='quantity' name="quantity"><br>
@@ -107,13 +169,16 @@
 
         <br><br>
 
+  </div>
 
-<!-- //////////////////REMOVE FOOD FROM REFRIDGERATOR /////////////////////// -->
+  <div class="col d-flex">
+
+    <!-- //////////////////REMOVE FOOD FROM REFRIDGERATOR /////////////////////// -->
 
         <div id='remove-food'>
 
           <form id='remove-food-form'>
-          Remove from fridge:<br>
+          <b>Remove from fridge:</b><br>
            <div id='rmfood'>
             <select id="rm-ingredient" name="rm-ingredient">
               {% for item in user_refrigerator %}
@@ -133,12 +198,21 @@
           url_for('static', filename='remove-food.js') }}"></script>
 
         <br><br>
+  </div>
+</div>
 
+</p>
+
+<br><br>
+
+
+
+ <h3 id="recipes">Recipes</h3>
+  <p>
  <!-- ////////////////////////DISPLAY RECIPES ///////////////////////////// -->
 
         <div id="display-recipes">
-          <h2>Recipes</h2>
-          <button type='button' id='get-recipes' onClick="refreshRecipes(this)">
+          <button class="btn" id='get-recipes' onClick="refreshRecipes(this)">
             Get Recipes!</button><br><br>
 
             <div id='recipediv'>
@@ -152,11 +226,15 @@
 
 
       <br><br><br>
+  </p>
 
+
+
+<h3 id="favorites">Favorites</h3>
+  <p>
  <!-- /////////////////////DISPLAY FAVORITE RECIPES //////////////////////// -->
 
         <div id="display-favs">
-          <h2>Favorite Recipes</h2>
 
             {% for item in fav_recipes %}
 
@@ -182,11 +260,8 @@
           <script type=text/javascript src="{{
             url_for('static', filename='del-fav.js') }}"></script>
 <br><br><br>
+  </p>
 
-
-
-
-<a href='/logout'>Log Out</a> 
 
 
 
