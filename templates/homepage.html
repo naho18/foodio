@@ -1,35 +1,43 @@
 {% extends 'base.html' %}
+
+{% block styles %}
+  <link href="static/homepage.css" rel="stylesheet">
+{% endblock %}
+
+
 {% block content %}
 
-<div class="row">
-  <div class="col">
+<body>
 
-<b>Log In</b>
+    <!-- Static navbar -->
 
-    <form action="/login" method="POST">
-         Email: <input type="text" name="email">  Password: <input type="password" name="password"><br>
+    <div id="homepage" class="container-fluid">
+        <div class="row">
+                <div class="mx-auto">
+                <br><br><br><br><br>
+                    <h1>Foodio</h1>
+                        
+                        <center>
 
-        <input type="submit" value="Log In">
-    </form>
-  </div>
+                        <button id='login' class="btn inline">Log In</button>
+                        <button id='register' class="btn inline">Register</button>
 
-</div>
-<hr>
+                          <div id='homepageForm'>
+                            <!-- login/register forms -->
+                          </div>
 
-<!-- link that takes you to registration form instead  -->
+                        </center>
 
-<div class="row">
-  <div class="col">
-<b>Sign Up</b>
+                </div>
+        </div>
+    </div>
 
-<form action='/registration' method="POST">
-    Name:<input type='text' name='name'><br>
-    Email:<input type='text' name='email'><br>
-    Password:<input type='password' name='password'><br>
-    <input type="Submit" value='Sign Up'>
-</form>
+        <script type=text/javascript src="{{
+          url_for('static', filename='login-register.js') }}"></script>
 
-  </div>
-</div>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
 {% endblock %}
 

@@ -1,7 +1,16 @@
 body {
-    font-family: Verdana;
+    font-family: 'Playfair Display', serif;
+
 }
 
+.container-fluid{
+    height: 90%;
+    width: 90%;
+    top: 40px;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+}
 h2 {
     color: red;
 }
@@ -18,7 +27,6 @@ form {
   display: inline-block;
 }
 
-
 input[type=text] {
     font-size: 50%;
     padding: 0.25em;
@@ -33,6 +41,14 @@ input[type=submit] {
 }
 
 input[type=reset] {
+    background-color: red;
+    color: white;
+    font-size: 50%;
+    padding: 0.25em 1em;
+    border-radius: 20px;
+}
+
+button {
     background-color: red;
     color: white;
     font-size: 50%;

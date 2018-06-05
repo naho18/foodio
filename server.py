@@ -25,6 +25,7 @@ app.secret_key = 'hj8fal15iz3d0fx8fN0abi6bf'
 # raises jinja underfined error
 app.jinja_env.undefined = StrictUndefined
 
+
 @app.route('/')
 def index():
 
@@ -267,7 +268,7 @@ def add_quantity():
     f.quantity += 1
 
     print "f.quantity", f.quantity
-    # db.session.commit()
+    db.session.commit()
 
     return jsonify(f.quantity)
 
@@ -324,9 +325,6 @@ def fav_recipes():
         return jsonify('Recipe already in favorites!')
 
 
-
-
-
 @app.route('/del-favs.json')
 def del_recipes():
     """Delete a favorited recipe"""
@@ -342,6 +340,7 @@ def del_recipes():
 
 
     return jsonify('deleted from favs')
+
 
 ##############################################################################
 
