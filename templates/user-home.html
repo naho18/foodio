@@ -37,6 +37,10 @@
   <br><br>
 
   <div class="jumbotron">
+<!--     <div class='jumboimg'>
+
+    </div> -->
+
     <div id='jumbotext'>
 
   <h1>
@@ -47,25 +51,15 @@
   <p> <br>
     <span>Virtually maintain your refrigerator to find delicious recipes with ingredients you already have! Yumm!</span></p>
   
-  <a class="btn" href="#my-refrigerator" role="button">Get started</a>
+  <a id='jumbo' class="btn" href="#my-refrigerator" role="button">Get started</a>
   </div>
-</div>
+</div> 
 
-
-
-
-
-  <!-- <h3>Welcome, {{ user_name }}!</h3> -->
-  <br><br>
-
-
-
+<br><br>
 
 
 <div data-spy="scroll" data-target="#user-home" data-offset="0">
-
-
-  <h3 id="my-refrigerator">My Refrigerator</h3>
+  <h2 id="my-refrigerator">My Refrigerator</h2>
   <p>
  <!-- /////////////////// DISPLAY FOOD IN REFRIGERATOR///////////////////// -->
 
@@ -84,13 +78,13 @@
           <!-- add button -->
           <form id='add-quantity-form' class="inline">
           <p hidden id="add-btn-{{ loop.index }}">{{ item.food.food_id }}</p> 
-          <button type='button' id="add-btn-{{ loop.index }}" value='+' onClick="addQuantity(this)">+</button>
+          <button type='button' id="add-btn-{{ loop.index }}" value='+' onClick="addQuantity(this)"><b>+</b></button>
           </form>
 
           <!-- subtract button -->
           <form id='subtract-quantity-form' class="inline">
           <p hidden id="sub-btn-{{ loop.index }}">{{ item.food.food_id }}</p> 
-          <button type='button' id="sub-btn-{{ loop.index }}" value='-' onClick="subQuantity(this)">-</button>
+          <button type='button' id="sub-btn-{{ loop.index }}" value='-' onClick="subQuantity(this)"><b>-</b></button>
           </form>
 
           <br><br>
@@ -113,9 +107,20 @@
 
 
 <div class="row">
+  <div class="col-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      
+      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#add-food" role="tab" aria-controls="v-pills-home" aria-selected="true">Add ingredient</a>
 
-  <div class="col d-flex">
+      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#remove-food" role="tab" aria-controls="v-pills-profile" aria-selected="false">Remove ingredient</a>
 
+    
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="tab-content" id="v-pills-tabContent">
+      
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
     <!-- ////////////////////ADD FOOD TO REFRIDGERATOR ///////////////////////// -->
         <div id='add-food'>
 
@@ -131,28 +136,7 @@
 
           </datalist>
 
-<!--             <option value="asparagus">
-            <option value="bananas">
-            <option value="butter">
-            <option value="cauliflower">
-            <option value="celery">
-            <option value="cherries">
-            <option value="egg">
-            <option value="guava">
-            <option value="lemons"> 
-            <option value="mango">
-            <option value="mushrooms">          
-            <option value="milk">                                  
-            <option value="orange">
-            <option value="salmon">
-            <option value="spinach">
-            <option value="strawberries"> -->
-
-
-
           <form id='add-food-form' >
-
-          <b>Add to fridge:</b><br>
 
             Ingredient: <input type="text" id='ingredient' name="ingredient" list="foods"><br>
             Quantity: <input type="text" id='quantity' name="quantity"><br>
@@ -166,19 +150,16 @@
 
         <script type=text/javascript src="{{
           url_for('static', filename='add-food.js') }}"></script>
+      </div>
 
-        <br><br>
-
-  </div>
-
-  <div class="col d-flex">
-
+      
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
     <!-- //////////////////REMOVE FOOD FROM REFRIDGERATOR /////////////////////// -->
 
         <div id='remove-food'>
 
           <form id='remove-food-form'>
-          <b>Remove from fridge:</b><br>
+         
            <div id='rmfood'>
             <select id="rm-ingredient" name="rm-ingredient">
               {% for item in user_refrigerator %}
@@ -200,14 +181,20 @@
         <br><br>
   </div>
 </div>
-
+</div>
 </p>
 
 <br><br>
 
+      </div>
+    
+    <!-- </div>
+  </div>
+</div>
+ -->
 
 
- <h3 id="recipes">Recipes</h3>
+ <h2 id="recipes">Recipes</h2>
   <p>
  <!-- ////////////////////////DISPLAY RECIPES ///////////////////////////// -->
 
@@ -230,7 +217,7 @@
 
 
 
-<h3 id="favorites">Favorites</h3>
+<h2 id="favorites">Favorites</h2>
   <p>
  <!-- /////////////////////DISPLAY FAVORITE RECIPES //////////////////////// -->
 

@@ -11,23 +11,15 @@
 
         for (let recipe of recipes) {
             // title
-            apiRecipes.push("<div id='api-recipes' class='inline'>" + recipe['title'] + "<br>" + 
-            
-            // image with link to recipe
-            `<a id=recipe${i} href="https://spoonacular.com/recipes/${recipe['title'].replace(
-                / /g, '-')}-${recipe['id']}">` + "<br>" + 
-            `<img id=recipe${i} src="${recipe['image']}" alt="Image"></a>` + "<br>" +
-            
-            // ingredient data
-            `Num of Ingredients Used: ${recipe['usedIngredientCount']} ` + "<br>" +
-            `Num of Ingredients Needed: ${recipe['missedIngredientCount']} ` + 
-            
-            // recipe title
+            apiRecipes.push("<div id='api-recipes' class='inline'>" +
+            `<h5><a id=recipe${i} href="https://spoonacular.com/recipes/${recipe['title'].replace(
+                / /g, '-')}-${recipe['id']}">${recipe['title']} </a>` +
+            `<img id=recipe${i} src="${recipe['image']}" alt="image">` +
+            `<text class="recipetext">Ingredients Used: ${recipe['usedIngredientCount']}, Needed: ${recipe['missedIngredientCount']}     </text>` + 
             `<p hidden id=recipe${i} value="${recipe['title']}"> </p>` +
+            `<button type='button' class='inline' id=recipe${i} onClick="favRecipes(this)">&hearts;</button>`
+             + "<br>" + "<br>" + "</div>");
 
-            // Add to favorites button
-            `<button type='button' id=recipe${i} onClick="favRecipes(this)">&hearts;</button>`
-            + "<br>" + "<br>" + "</div>");
             
             // increment i by 1
             i += 1
@@ -37,7 +29,6 @@
         $('#recipediv').html(apiRecipes);
     }
 
-// id=recipe${i}
 
     function getRecipes() {
         $.get('/recipes.json', displayRecipes);
@@ -77,16 +68,11 @@
     }
 
     function displayFavs() {
-
-        // refresh fav recipes 
-
         $('#display-favs').load(" #display-favs > *");
     }
 
 
     function refreshRecipes() {
         getRecipes();
-        console.log("inside refresh recipes")
-
-        // $('#display-recipes').load(" #display-recipes > *");
+        $('#display-recipes').load(" #display-recipes > *");
     }

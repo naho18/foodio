@@ -5,20 +5,40 @@ body {
 
 .jumbotron {
   background-image: url(fridge-of-food.jpg);
+  opacity: 0.5;
   position: relative;
 }
+
+/*.jumboimg {
+  background-image: url(fridge-of-food.jpg);
+  opacity: 0.5;
+  /*z-index: -1;*/
+  position: relative;
+}*/
 
 h1 span {
   background-color: rgba(255,255,255, 0.5);
 }
-p span {
+
+#jumbotext h1 p span {
   background-color: rgba(255,255,255, 0.5);
+  opacity: 1;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+
+.recipetext {
+  background-color: rgba(255,255,255, 0.5);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 
 .btn {
   background-color: red;
+  color: white;
   border: 0px;
 }
+
 
 .container-fluid{
     height: 90%;
@@ -28,7 +48,7 @@ p span {
     left: 40px;
     right: 40px;
 }
-h2, h3 {
+h2, h3, h4, h6 {
     color: red;
 }
 
@@ -93,5 +113,6 @@ button {
   width: 150px;
   height: 100px;
   color: red;
+  font-size: 16px;
 }
 
