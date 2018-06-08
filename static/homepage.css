@@ -48,7 +48,7 @@ input[type="text"], input[type="password"] {
   color: red;
   font-size: 16px;
   text-align: center;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   font-style: italic;
   margin: 25px;
@@ -73,10 +73,8 @@ input[type="submit"]:hover {
 
 
 .btn {
-  /*margin: 25px;*/
-  /*padding: 15px 30px;*/
   border: 1px solid #fff;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1px;
   line-height: 1;
   color: red;
@@ -89,13 +87,11 @@ input[type="submit"]:hover {
 }
 
 button.btn {
-  /*margin: 25px;*/
-  /*padding: 15px 30px;*/
   border: 1px solid #fff;
   width: 175px;
   height: 40px;
   font-weight: bold;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   line-height: 1;
   color: red;

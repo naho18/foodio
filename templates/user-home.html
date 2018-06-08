@@ -2,11 +2,17 @@
 
 {% block styles %}
 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
   <link href="static/foodio.css" rel="stylesheet">
 {% endblock %}
 
 
 {% block content %}
+
+<!-- NAV BAR -->
 
   <nav id="user-home" class="navbar navbar-expand-lg navbar-dark" style="background-color: red;">
     <span id="logo" class="navbar-brand" href="#">Foodio</span>
@@ -14,20 +20,21 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarText">
 
        <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#my-refrigerator">My Refrigerator</a>
+          <a class="nav-link active" style="color:white;" href="#my-refrigerator">My Refrigerator</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#recipes">Recipes</a>
+          <a class="nav-link active" style="color:white;"  href="#recipes">Recipes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#favorites">Favorites</a>
+          <a class="nav-link active" style="color:white;" href="#favorites">Favorites</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/logout">Log Out</a>
+          <a class="nav-link" style="color:white;" href="/logout">Log Out</a>
         </li>
         </li>
       </ul>
@@ -36,37 +43,38 @@
   </nav>
   <br><br>
 
+
+<!-- JUMBOTRON -->
   <div class="jumbotron">
-<!--     <div class='jumboimg'>
 
-    </div> -->
+    <div id='jumbotext' class='container'>
 
-    <div id='jumbotext'>
+      <h1><span>Welcome, {{ user_name }}!</span></h1>
 
-  <h1>
-    <span>Welcome, {{ user_name }}!</span></h1>
-
-  <p><span>Dinner made easy with Foodio!</span></p>
-  <hr>
-  <p> <br>
-    <span>Virtually maintain your refrigerator to find delicious recipes with ingredients you already have! Yumm!</span></p>
+      <p><span>Dinner made easy with Foodio!</span></p>
+      <hr>
+      <br><p><span>Virtually maintain your refrigerator to find delicious 
+        recipes with ingredients you already have! Yumm!</span></p>
   
-  <a id='jumbo' class="btn" href="#my-refrigerator" role="button">Get started</a>
-  </div>
-</div> 
+      <a id='jumbo' class="btn" href="#my-refrigerator" role="button">Get started</a>
+    </div>
+
+  </div> 
 
 <br><br>
 
 
 <div data-spy="scroll" data-target="#user-home" data-offset="0">
-  <h2 id="my-refrigerator">My Refrigerator</h2>
-  <p>
+
  <!-- /////////////////// DISPLAY FOOD IN REFRIGERATOR///////////////////// -->
 
       <br>
 
       <div id='display-food'>
 
+      <h2 id="my-refrigerator">My Refrigerator</h2><br>
+      <p>
+        
         {% for item in user_refrigerator %}
         <div id='fooddiv'>
 
@@ -104,101 +112,94 @@
           url_for('static', filename='sub-quantity.js') }}"></script>
 
 <br><br>
+</div>
 
+
+<!-- ADD/REMOVE FOOD -->
 
 <div class="row">
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       
-      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#add-food" role="tab" aria-controls="v-pills-home" aria-selected="true">Add ingredient</a>
+      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-add" role="tab" aria-controls="v-pills-home" aria-selected="true">Add ingredient</a>
 
-      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#remove-food" role="tab" aria-controls="v-pills-profile" aria-selected="false">Remove ingredient</a>
+      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-remove" role="tab" aria-controls="v-pills-profile" aria-selected="false">Remove ingredient</a>
 
     
     </div>
   </div>
+
   <div class="col-9">
     <div class="tab-content" id="v-pills-tabContent">
       
-      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-    <!-- ////////////////////ADD FOOD TO REFRIDGERATOR ///////////////////////// -->
-        <div id='add-food'>
+          <div class="tab-pane fade show active" id="v-add" role="tabpanel" aria-labelledby="v-pills-home-tab">
+          <!-- ////////////////////ADD FOOD TO REFRIDGERATOR ///////////////////////// -->
+            <div id='add-food'>
+              <datalist id="foods">
+
+                {% for food in food_list %}
+                  <option value="{{ food }}">  
+                {% endfor %}
+
+              </datalist>
+
+              <form id='add-food-form' >
+                <text class='text'>
+                Ingredient:</text> <input type="text" id='ingredient' name="ingredient" list="foods">
+                <text class='text'>Quantity: </text><input type="text" id='quantity' name="quantity">
+                <input id='add-food-btn' type='submit' value='add'>
+<!--                 <input type="reset" value="reset"> -->
+              </form>
+            </div>  
+            <!-- load JS  -->
+            <script type=text/javascript src="{{
+              url_for('static', filename='add-food.js') }}"></script>
+          </div>
 
 
-<!-- http://blog.teamtreehouse.com/creating-autocomplete-dropdowns-datalist-element -->
-<!-- datalist autocomplete dropdown -->
+        <div class="tab-pane fade" id="v-remove" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+        <!-- //////////////////REMOVE FOOD FROM REFRIDGERATOR /////////////////////// -->
 
-          <datalist id="foods">
+          <div id='remove-food'>
 
-            {% for food in food_list %}
-              <option value="{{ food }}">  
-            {% endfor %}
+            <form id='remove-food-form'>
+         
+              <div id='rmfood'>
+                <select id="rm-ingredient" name="rm-ingredient">
+                  {% for item in user_refrigerator %}
+                      <!-- item object of food, at food name -->
+                      <option value="{{item.food.food_id}} {{item.food.food}}">{{ item.food.food }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <input id='remove-food-btn' class='inline' type='submit' value='remove'>
+            
+            </form>
+          </div>   
 
-          </datalist>
+          <script type=text/javascript src="{{
+            url_for('static', filename='remove-food.js') }}"></script>
 
-          <form id='add-food-form' >
-
-            Ingredient: <input type="text" id='ingredient' name="ingredient" list="foods"><br>
-            Quantity: <input type="text" id='quantity' name="quantity"><br>
-          <!--   Expires on:<input type="text" name="expiration"> -->
-            <input type='submit' value='add'>
-            <input type="reset" value="reset">
-          </form>
-        </div>  
-
-        <!-- load JS  -->
-
-        <script type=text/javascript src="{{
-          url_for('static', filename='add-food.js') }}"></script>
+          <br><br>
       </div>
 
-      
-      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-    <!-- //////////////////REMOVE FOOD FROM REFRIDGERATOR /////////////////////// -->
-
-        <div id='remove-food'>
-
-          <form id='remove-food-form'>
-         
-           <div id='rmfood'>
-            <select id="rm-ingredient" name="rm-ingredient">
-              {% for item in user_refrigerator %}
-                  <!-- item object of food, at food name -->
-                  <option value="{{item.food.food_id}} {{item.food.food}}">{{ item.food.food }}</option>
-              {% endfor %}
-              &nbsp;
-            </select>
-              </div>
-
-            <input type='submit' value='remove'>
-            
-          </form>
-      </div>   
-
-        <script type=text/javascript src="{{
-          url_for('static', filename='remove-food.js') }}"></script>
-
-        <br><br>
-  </div>
 </div>
 </div>
 </p>
 
 <br><br>
 
-      </div>
+<!--       </div> -->
     
-    <!-- </div>
-  </div>
-</div>
- -->
 
 
- <h2 id="recipes">Recipes</h2>
-  <p>
+<br><br><br>
+
  <!-- ////////////////////////DISPLAY RECIPES ///////////////////////////// -->
 
-        <div id="display-recipes">
+        <div id="display-recipes"><br><br><br>
+          <h2 id="recipes">Recipes</h2>
+          <p> 
           <button class="btn" id='get-recipes' onClick="refreshRecipes(this)">
             Get Recipes!</button><br><br>
 
@@ -214,10 +215,10 @@
 
       <br><br><br>
   </p>
+</div>
+<br><br><br>
 
-
-
-<h2 id="favorites">Favorites</h2>
+<h2 id="favorites">Favorites</h2><br>
   <p>
  <!-- /////////////////////DISPLAY FAVORITE RECIPES //////////////////////// -->
 
@@ -248,7 +249,6 @@
             url_for('static', filename='del-fav.js') }}"></script>
 <br><br><br>
   </p>
-
 
 
 
