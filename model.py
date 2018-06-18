@@ -135,8 +135,6 @@ def example_data():
     db.session.add_all([rs1, rs2])
     db.session.commit()
 
-    # print "ADDED TO DB"
-
 
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave

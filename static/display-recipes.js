@@ -1,6 +1,3 @@
- // has class vs removeClass
-
-
 "use strict"; 
 
     function displayRecipes(results) {
@@ -20,7 +17,6 @@
             `<button type='button' class='inline' id=recipe${i} onClick="favRecipes(this)">&hearts;</button>`
              + "<br>" + "<br>" + "</div>");
 
-            
             // increment i by 1
             i += 1
 
@@ -43,15 +39,7 @@
         let img = $(`img#${param.id}`).attr("src");
         let title = $(`p#${param.id}`).attr("value");
 
-        console.log(title)
-        console.log(link)
-        console.log(img)
-
-
         $(`button#${param.id}`).attr('style', 'background-color:red; color:white; padding: 0.25em 1em; border-radius: 20px;');
-
-
-        console.log("inside fav-recipes")
 
         let formInputs = {
             "fav-url": link,
@@ -59,20 +47,12 @@
             "title" : title
         }
 
-        console.log(formInputs);
-
-    // send to route
         $.get("/fav-recipes.json", 
                formInputs,
                displayFavs);
     }
 
+
     function displayFavs() {
         $('#display-favs').load(" #display-favs > *");
-    }
-
-
-    function refreshRecipes() {
-        getRecipes();
-        $('#display-recipes').load(" #display-recipes > *");
     }

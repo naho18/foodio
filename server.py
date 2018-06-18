@@ -19,8 +19,8 @@ from sqlalchemy import update
 # create flask app
 app = Flask(__name__)
 
-# create secret key, necessary for sessions:
-app.secret_key = 'hj8fal15iz3d0fx8fN0abi6bf'
+# create secret key
+app.secret_key = os.environ['FLASK_SECRET_KEY']
 
 # raises jinja underfined error
 app.jinja_env.undefined = StrictUndefined
@@ -72,7 +72,6 @@ def login_check():
 
     # Get user's id using email
     user_id = email_query.user_id
-    print user_id
 
     # Valid user password
     if user_password == email_query.password:
@@ -97,10 +96,8 @@ def logout():
 @app.route('/user-<user_id>')
 def display_homepage(user_id):
     """Show user's information"""
-    print 'homepage', user_id
 
     user_refrigerator = (Refrigerator.query.filter_by(user_id = user_id)).all()
-    print user_refrigerator
 
     user = User.query.filter_by(user_id=user_id).all()
 
@@ -141,7 +138,6 @@ def get_food_data():
         food_data.append({'food': item.food.food, 'quantity': item.food.quantity})
 
     dataset = {"children": food_data }
-    print 'food-data.json', dataset
 
     return jsonify(dataset)
 
@@ -155,7 +151,6 @@ def add_food():
     quantity_input = request.form['quantity']
     quantity = int(quantity_input)
     added_on = str(datetime.now())
-    # food_type = request.form['food_type']
 
     # get user_id from session
     user_id = session['user']
@@ -167,8 +162,6 @@ def add_food():
 
     # get food_id
     food_id = food.food_id
-    print "food_id", food_id
-    print food.food_id
 
     # add to Refrigerator table
     refrigerator = Refrigerator(user_id=user_id, food_id=food_id)
@@ -190,9 +183,6 @@ def remove_food():
     food_info2 = food_info.split(" ")
     food_id = food_info2[0]
     food_name = food_info2[1]
-
-    print food_id
-    print food_name
 
     # query to delete refrigerator by user_id & food_id from Refrigerator table
     del_fridge = Refrigerator.query.filter(
@@ -217,36 +207,17 @@ def display_recipes():
 
     # create ingredients list to pass to API request
     for item in user_refrigerator:
-        print item.food.food
         ingredients += item.food.food + ", "
 
     payload = {'fillIngredients': 'false', 'ingredients': ingredients, 'limitLicense': 'false', 'number':6, 'ranking':1}
 
-    # r = unirest.get(
-    #     "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients", 
-    #     headers={"X-Mashape-Key": os.environ['X_Mashape_Key'],
-    #     "Accept": "application/json"}, params=payload
-    # )
+    r = unirest.get(
+        "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients", 
+        headers={"X-Mashape-Key": os.environ['X_Mashape_Key'],
+        "Accept": "application/json"}, params=payload
+    )
 
-    # body = r.body
-
-    body = [
-    {u'title': u'Fried Shrimp Rolls', u'image': u'https://spoonacular.com/recipeImages/743121-312x231.jpeg', 
-    u'missedIngredientCount': 9, u'likes': 97, u'usedIngredientCount': 4, u'id': 743121, u'imageType': u'jpeg'}, 
-
-    {u'title': u'Salmon Burger with Dill/Caper Tartar Sauce and Red Onion Ceviche', u'image': u'https://spoonacular.com/recipeImages/767322-312x231.jpg', 
-    u'missedIngredientCount': 12, u'likes': 0, u'usedIngredientCount': 4, u'id': 767322, u'imageType': u'jpg'}, 
-
-    {u'title': u'Green Goddess Salmon Burgers', u'image': u'https://spoonacular.com/recipeImages/880658-312x231.jpg', u'missedIngredientCount': 15, u'likes': 0, 
-    u'usedIngredientCount': 4, u'id': 880658, u'imageType': u'jpg'}, 
-
-    {u'title': u"Seafood Po' Boy with Umami Remoulade", u'image': u'https://spoonacular.com/recipeImages/770137-312x231.jpeg', u'missedIngredientCount': 17, u'likes': 4, u'usedIngredientCount': 4, u'id': 770137, u'imageType': u'jpeg'}, 
-
-    {u'title': u'Zesty Salmon Burgers with Dill Spread', u'image': u'https://spoonacular.com/recipeImages/595943-312x231.jpg', u'missedIngredientCount': 20, u'likes': 674, u'usedIngredientCount': 4, u'id': 595943, u'imageType': u'jpg'}, 
-
-    {u'title': u'Smoked Salmon & Scrambled Eggs Recipe', u'image': u'https://spoonacular.com/recipeImages/78568-312x231.jpg', u'missedIngredientCount': 2, u'likes': 121, u'usedIngredientCount': 3, u'id': 78568, u'imageType': u'jpg'}]
-
-    print body
+    body = r.body
 
     return jsonify(body)
 
@@ -257,17 +228,13 @@ def add_quantity():
 
     # Use Ajax request to get food_id
     f_id = request.args.get('food-id')
-    print "f_id", f_id
 
     # Query food quantity
     f = Food.query.get(f_id)
 
-    print "f", f
-
     # Increment by 1
     f.quantity += 1
 
-    print "f.quantity", f.quantity
     db.session.commit()
 
     return jsonify(f.quantity)
@@ -279,16 +246,12 @@ def sub_quantity():
 
     # Use Ajax request to get food_id
     f_id = request.args.get("food-id")
-    print "f_id", f_id
 
     # Query food quantity
     f = Food.query.filter(Food.food_id == f_id).one()
-    print "f", f
 
     # Increment by 1
     f.quantity -= 1
-
-    print "f.quantity", f.quantity
 
     db.session.commit()
 
@@ -315,20 +278,16 @@ def fav_recipes():
         recipe = Recipe(user_id=user_id, title=title, url=url, img=img)
         db.session.add(recipe)
         db.session.commit()
-        print "****** added to db"
-        print "ADDED TO FAVS"
 
         return jsonify('Recipe added to favorites!')
     
-    else:
-        print "ALREADY IN FAVS"        
+    else:       
         return jsonify('Recipe already in favorites!')
 
 
 @app.route('/del-favs.json')
 def del_recipes():
     """Delete a favorited recipe"""
-
 
     user_id = session['user']
     title = request.args.get("title")
@@ -346,7 +305,7 @@ def del_recipes():
 
 
 if __name__ == "__main__":
-    app.debug = True
+    # app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     DebugToolbarExtension(app)
     connect_to_db(app)

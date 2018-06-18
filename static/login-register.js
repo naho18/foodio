@@ -1,6 +1,4 @@
   "use strict";
-  
-  // let headings = $('.homepageForm');
 
   function logIn(evt) {
 

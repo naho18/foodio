@@ -10,18 +10,10 @@ function displayDecrease(results) {
 function subQuantity(param) {
 
     let food_id = document.querySelector(`p#${param.id}`);
-
-    console.log(food_id.innerText)
-    console.log("inside subQuantity")
     
     let formInputs = {
         "food-id": food_id.innerText,
     }
-
-    console.log(formInputs);
-
-
-// send to route
 
     $.get("/sub-quantity.json", 
            formInputs,

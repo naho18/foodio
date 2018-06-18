@@ -10,19 +10,9 @@ function displayIncrease(results) {
 function addQuantity(param) {
 
     let food_id = document.querySelector(`p#${param.id}`);
-
-    console.log(food_id.innerText)
-
-    console.log("inside add quantity")
-
     let formInputs = {
         "food-id": food_id.innerText,
     }
-
-    console.log(formInputs);
-
-
-// send to route
 
     $.get("/add-quantity.json", 
            formInputs,
